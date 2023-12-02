@@ -20,18 +20,18 @@ describe('HealthController (e2e)', () => {
       .get('/health')
       .expect(200)
       .expect({
-        "status": "ok",
-        "info": {
-          "nestjs-docs": {
-            "status": "up"
-          }
+        status: 'ok',
+        info: {
+          'env status': {
+            status: 'up', env: process.env.NODE_ENV
+          },
         },
-        "error": {},
-        "details": {
-          "nestjs-docs": {
-            "status": "up"
-          }
-        }
+        error: {},
+        details: {
+          'env status': {
+            status: 'up', env: process.env.NODE_ENV
+          },
+        },
       });
   });
 });
