@@ -35,7 +35,7 @@ jobs:
       - name: Build, tag, and push image to Amazon ECR
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          IMAGE_TAG: ${{ steps.branch-name.outputs.current_branch }}
+          IMAGE_TAG: ${{ steps.branch-name.outputs.base_ref_branch }}
         run: |
           docker build -t $ECR_REGISTRY/nest-cicd:$IMAGE_TAG .
           docker push $ECR_REGISTRY/nest-cicd:$IMAGE_TAG
