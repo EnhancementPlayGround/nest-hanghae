@@ -4,6 +4,6 @@ import { HealthIndicator, HealthIndicatorResult } from '@nestjs/terminus';
 @Injectable()
 export class EnvHealthIndicator extends HealthIndicator {
   async isHealthy(): Promise<HealthIndicatorResult> {
-    return this.getStatus('env status', true, { env: process.env.NODE_ENV });
+    return this.getStatus('env status', true, { env: process.env.NODE_ENV, vesrion: process.env.VERSION });
   }
 }

@@ -1,41 +1,55 @@
 {
-    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:073042843020:task-definition/ProdTask:1",
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:073042843020:task-definition/nest-cicd:2",
     "containerDefinitions": [
         {
-            "name": "prod",
-            "image": "073042843020.dkr.ecr.ap-northeast-2.amazonaws.com/nest-cicd",
+            "name": "nest-cicd",
+            "image": "073042843020.dkr.ecr.ap-northeast-2.amazonaws.com/nest-cicd:release-0.0.2",
             "cpu": 0,
             "portMappings": [
                 {
-                    "name": "prod-3000-tcp",
+                    "name": "nest-cicd-3000-tcp",
                     "containerPort": 3000,
-                    "hostPort": 80,
+                    "hostPort": 3000,
                     "protocol": "tcp",
                     "appProtocol": "http"
                 }
             ],
             "essential": true,
-            "environment": [
-                {
-                    "name": "NODE_ENV",
-                    "value": "prod"
-                }
-            ],
+            "environment": [],
             "environmentFiles": [],
             "mountPoints": [],
             "volumesFrom": [],
-            "ulimits": []
+            "ulimits": [],
+            "logConfiguration": {
+                "logDriver": "awslogs",
+                "options": {
+                    "awslogs-create-group": "true",
+                    "awslogs-group": "/ecs/nest-cicd",
+                    "awslogs-region": "ap-northeast-2",
+                    "awslogs-stream-prefix": "ecs"
+                },
+                "secretOptions": []
+            }
         }
     ],
-    "family": "ProdTask",
+    "family": "nest-cicd",
     "executionRoleArn": "arn:aws:iam::073042843020:role/ecsTaskExecutionRole",
     "networkMode": "awsvpc",
-    "revision": 1,
+    "revision": 2,
     "volumes": [],
     "status": "ACTIVE",
     "requiresAttributes": [
         {
+            "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+        },
+        {
+            "name": "ecs.capability.execution-role-awslogs"
+        },
+        {
             "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
         },
         {
             "name": "ecs.capability.execution-role-ecr-pull"
@@ -45,6 +59,9 @@
         },
         {
             "name": "ecs.capability.task-eni"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.29"
         }
     ],
     "placementConstraints": [],
@@ -61,7 +78,7 @@
         "cpuArchitecture": "X86_64",
         "operatingSystemFamily": "LINUX"
     },
-    "registeredAt": "2023-12-03T10:30:55.624Z",
+    "registeredAt": "2023-12-03T12:04:26.390Z",
     "registeredBy": "arn:aws:iam::073042843020:root",
     "tags": []
 }

@@ -25,6 +25,7 @@ describe('HealthController (e2e)', () => {
           'env status': {
             status: 'up',
             env: process.env.NODE_ENV,
+            version: process.env.VERSION
           },
         },
         error: {},
@@ -32,6 +33,7 @@ describe('HealthController (e2e)', () => {
           'env status': {
             status: 'up',
             env: process.env.NODE_ENV,
+            version: process.env.VERSION
           },
         },
       });
