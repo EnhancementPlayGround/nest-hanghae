@@ -1,4 +1,5 @@
-FROM node:18-alpine
+# Build Stage
+FROM node:18-alpine as builder
 
 WORKDIR /usr/src/app
 
@@ -10,4 +11,15 @@ COPY . .
 
 RUN npm run build
 
-ENTRYPOINT npm run start:prod
+# Production Stage
+FROM node:18-alpine
+
+WORKDIR /usr/src/app
+
+COPY --from=builder /usr/src/app/package*.json ./
+
+RUN npm install --production
+
+COPY --from=builder /usr/src/app/dist ./dist
+
+ENTRYPOINT ["npm", "run", "start:prod"]
