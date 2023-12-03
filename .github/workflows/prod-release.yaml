@@ -56,7 +56,7 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.render-web-container.outputs.task-definition }}
-          service: release-prod
+          service: prod
           cluster: nest-cicd-cluster
 
       - name: Release & Tag 생성
