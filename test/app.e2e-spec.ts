@@ -11,6 +11,9 @@ describe('HealthController (e2e)', () => {
       imports: [AppModule],
     }).compile();
 
+    process.env.NODE_ENV = 'test'
+    process.env.VERSION = '0.0.0'
+    
     app = moduleFixture.createNestApplication();
     await app.init();
   });
