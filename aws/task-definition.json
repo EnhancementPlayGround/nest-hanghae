@@ -1,0 +1,67 @@
+{
+    "taskDefinitionArn": "arn:aws:ecs:ap-northeast-2:073042843020:task-definition/ProdTask:1",
+    "containerDefinitions": [
+        {
+            "name": "prod",
+            "image": "073042843020.dkr.ecr.ap-northeast-2.amazonaws.com/nest-cicd",
+            "cpu": 0,
+            "portMappings": [
+                {
+                    "name": "prod-3000-tcp",
+                    "containerPort": 3000,
+                    "hostPort": 80,
+                    "protocol": "tcp",
+                    "appProtocol": "http"
+                }
+            ],
+            "essential": true,
+            "environment": [
+                {
+                    "name": "NODE_ENV",
+                    "value": "prod"
+                }
+            ],
+            "environmentFiles": [],
+            "mountPoints": [],
+            "volumesFrom": [],
+            "ulimits": []
+        }
+    ],
+    "family": "ProdTask",
+    "executionRoleArn": "arn:aws:iam::073042843020:role/ecsTaskExecutionRole",
+    "networkMode": "awsvpc",
+    "revision": 1,
+    "volumes": [],
+    "status": "ACTIVE",
+    "requiresAttributes": [
+        {
+            "name": "com.amazonaws.ecs.capability.ecr-auth"
+        },
+        {
+            "name": "ecs.capability.execution-role-ecr-pull"
+        },
+        {
+            "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+        },
+        {
+            "name": "ecs.capability.task-eni"
+        }
+    ],
+    "placementConstraints": [],
+    "compatibilities": [
+        "EC2",
+        "FARGATE"
+    ],
+    "requiresCompatibilities": [
+        "FARGATE"
+    ],
+    "cpu": "1024",
+    "memory": "3072",
+    "runtimePlatform": {
+        "cpuArchitecture": "X86_64",
+        "operatingSystemFamily": "LINUX"
+    },
+    "registeredAt": "2023-12-03T10:30:55.624Z",
+    "registeredBy": "arn:aws:iam::073042843020:root",
+    "tags": []
+}
