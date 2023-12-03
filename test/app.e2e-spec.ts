@@ -23,13 +23,15 @@ describe('HealthController (e2e)', () => {
         status: 'ok',
         info: {
           'env status': {
-            status: 'up', env: process.env.NODE_ENV
+            status: 'up',
+            env: process.env.NODE_ENV,
           },
         },
         error: {},
         details: {
           'env status': {
-            status: 'up', env: process.env.NODE_ENV
+            status: 'up',
+            env: process.env.NODE_ENV,
           },
         },
       });
