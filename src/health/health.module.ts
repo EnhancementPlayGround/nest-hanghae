@@ -6,6 +6,6 @@ import { EnvHealthIndicator } from './env.health';
 @Module({
   imports: [TerminusModule, HttpModule],
   providers: [EnvHealthIndicator],
-  exports: [EnvHealthIndicator, TerminusModule]
+  exports: [EnvHealthIndicator, TerminusModule],
 })
 export class HealthModule {}

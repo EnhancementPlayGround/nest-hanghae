@@ -5,6 +5,6 @@ import { ProductService } from './service/product.service';
 @Module({
   imports: [DatabaseModule],
   providers: [ProductService],
-  exports: [ProductService]
+  exports: [ProductService],
 })
 export class ProductsModule {}

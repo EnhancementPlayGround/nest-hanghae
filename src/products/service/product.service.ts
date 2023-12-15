@@ -9,8 +9,8 @@ export interface IFindProductsByPage {
 @Injectable()
 export class ProductService {
   constructor(
-    @Inject('IProductRepositry') private readonly repo: IProductRepository
-    ) {}
+    @Inject('IProductRepositry') private readonly repo: IProductRepository,
+  ) {}
 
   async findProductsByPage(params: IFindProductsByPage) {
     return this.repo.findProducts(params);

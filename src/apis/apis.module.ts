@@ -6,6 +6,6 @@ import { HealthModule } from '@/health/health.module';
 
 @Module({
   imports: [ProductsModule, HealthModule],
-  controllers: [ProductController, HealthController]
+  controllers: [ProductController, HealthController],
 })
 export class ApisModule {}
