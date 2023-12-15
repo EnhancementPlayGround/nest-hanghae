@@ -15,7 +15,7 @@ export default class ProductRepository implements IProductRepository {
     if (page < 1 || pageSize < 1) {
       throw new WrongRangeError('Page and pageSize must be greater than 0');
     }
-    
+
     const skip = (page - 1) * pageSize;
     const take = pageSize;
 

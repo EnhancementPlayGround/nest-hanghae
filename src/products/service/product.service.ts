@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import IProductRepository from './iProduct.repository';
 
 export interface IFindProductsByPage {
@@ -8,7 +8,9 @@ export interface IFindProductsByPage {
 
 @Injectable()
 export class ProductService {
-  constructor(private readonly repo: IProductRepository) {}
+  constructor(
+    @Inject('IProductRepositry') private readonly repo: IProductRepository
+    ) {}
 
   async findProductsByPage(params: IFindProductsByPage) {
     return this.repo.findProducts(params);

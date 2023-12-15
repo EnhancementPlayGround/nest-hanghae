@@ -1,9 +1,17 @@
-import { Global, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import DatabaseClient from './database.client';
+import ProductRepository from './repositories/product.repository';
 
-@Global()
 @Module({
-  providers: [DatabaseClient],
-  exports: [DatabaseClient],
+  providers: [DatabaseClient, 
+    {
+        provide: 'IProductRepositry',
+        useFactory: (client) => {
+            return new ProductRepository(client);
+        },
+        inject: [DatabaseClient],
+      },
+    ],
+  exports: ['IProductRepositry'],
 })
 export class DatabaseModule {}
