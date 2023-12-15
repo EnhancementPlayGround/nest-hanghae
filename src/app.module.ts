@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import { HealthModule } from './health/health.module';
 import { ConfigModule } from '@nestjs/config';
+import { ApisModule } from './apis/apis.module';
 
 @Module({
   imports: [
@@ -8,6 +9,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+    ApisModule,
   ],
   controllers: [],
   providers: [],

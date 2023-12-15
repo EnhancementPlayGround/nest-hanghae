@@ -11,9 +11,9 @@ describe('HealthController (e2e)', () => {
       imports: [AppModule],
     }).compile();
 
-    process.env.NODE_ENV = 'test'
-    process.env.VERSION = '0.0.0'
-    
+    process.env.NODE_ENV = 'test';
+    process.env.VERSION = '0.0.0';
+
     app = moduleFixture.createNestApplication();
     await app.init();
   });
@@ -28,7 +28,7 @@ describe('HealthController (e2e)', () => {
           'env status': {
             status: 'up',
             env: process.env.NODE_ENV,
-            version: process.env.VERSION
+            version: process.env.VERSION,
           },
         },
         error: {},
@@ -36,7 +36,7 @@ describe('HealthController (e2e)', () => {
           'env status': {
             status: 'up',
             env: process.env.NODE_ENV,
-            version: process.env.VERSION
+            version: process.env.VERSION,
           },
         },
       });
