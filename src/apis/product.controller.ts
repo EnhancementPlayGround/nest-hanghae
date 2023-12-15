@@ -1,8 +1,8 @@
 import { ProductService } from '@/products/service/product.service';
-import { Get, Injectable, Query } from '@nestjs/common';
+import { Controller, Get, Query } from '@nestjs/common';
 import { ProductQueryDto } from './dto/product.query';
 
-@Injectable()
+@Controller('products')
 export default class ProductController {
   constructor(private readonly productSvc: ProductService) {}
 
