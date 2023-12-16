@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import IProductRepository from './iProduct.repository';
+import IProductRepository from './IProduct.repository';
 
 export interface IFindProductsByPage {
   page: number;

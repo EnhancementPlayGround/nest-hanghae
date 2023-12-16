@@ -11,9 +11,17 @@ datasource db {
 }
 
 model Product {
-  id          String   @id
-  name        String
-  price       Float
-  quantity    Int
-  registedAt  DateTime
+  id         String   @id
+  name       String
+  price      Float
+  quantity   Int
+  registedAt DateTime
+}
+
+model Account {
+  id        String   @id
+  userId    String
+  balance   Float
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
