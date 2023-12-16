@@ -1,4 +1,4 @@
-import { Product } from '@prisma/client';
+import { Product } from '../domain/product';
 
 export class WrongRangeError extends Error {
   constructor(msg: string) {
@@ -7,8 +7,11 @@ export class WrongRangeError extends Error {
 }
 
 export interface FindProductOptions {
-  page: number;
-  pageSize: number;
+  pageOption?: {
+    page: number;
+    pageSize: number;
+  };
+  ids?: string[];
 }
 
 export interface SaveProductOptions {

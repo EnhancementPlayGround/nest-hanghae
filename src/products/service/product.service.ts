@@ -6,13 +6,21 @@ export interface IFindProductsByPage {
   pageSize: number;
 }
 
+export interface IFindProductsByIds {
+  ids: string[];
+}
+
 @Injectable()
 export class ProductService {
   constructor(
     @Inject('IProductRepositry') private readonly repo: IProductRepository,
   ) {}
 
-  async findProductsByPage(params: IFindProductsByPage) {
-    return this.repo.findProducts(params);
+  async findProductsByPage({ page, pageSize }: IFindProductsByPage) {
+    return this.repo.findProducts({ pageOption: { page, pageSize } });
+  }
+
+  async findProductsByIds({ ids }: IFindProductsByIds) {
+    return this.repo.findProducts({ ids });
   }
 }
