@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common';
 import DatabaseClient from './database.client';
 import ProductRepository from './repositories/product.repository';
+import AccountRepository from './repositories/account.repository';
 
 @Module({
   providers: [
@@ -12,7 +13,14 @@ import ProductRepository from './repositories/product.repository';
       },
       inject: [DatabaseClient],
     },
+    {
+      provide: 'IAccountRepository',
+      useFactory: (client) => {
+        return new AccountRepository(client);
+      },
+      inject: [DatabaseClient],
+    },
   ],
-  exports: ['IProductRepositry'],
+  exports: ['IProductRepositry', 'IAccountRepository'],
 })
 export class DatabaseModule {}

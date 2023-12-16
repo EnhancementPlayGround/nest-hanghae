@@ -5,7 +5,7 @@ import IProductRepository, {
   FindProductOptions,
   SaveProductOptions,
   WrongRangeError,
-} from '@/products/service/iProduct.repository';
+} from '@/products/service/IProduct.repository';
 
 @Injectable()
 export default class ProductRepository implements IProductRepository {
