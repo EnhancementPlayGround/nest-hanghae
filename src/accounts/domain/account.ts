@@ -7,7 +7,7 @@ export default class Account {
   ) {}
 
   public withdraw(amount: number) {
-    if (amount < this.balance) throw new InsufficientFundsError();
+    if (amount > this.balance) throw new InsufficientFundsError();
 
     this.balance -= amount;
   }
