@@ -11,23 +11,28 @@ import IProductRepository, {
 export default class ProductRepository implements IProductRepository {
   constructor(private readonly client: DatabaseClient) {}
 
-  async findProducts({ page = 1, pageSize = 10 }: FindProductOptions) {
-    if (page < 1 || pageSize < 1) {
+  async findProducts({ pageOption, ids }: FindProductOptions) {
+    const skip = pageOption
+      ? (pageOption.page - 1) * pageOption.pageSize
+      : undefined;
+    const take = pageOption ? pageOption.pageSize : undefined;
+
+    if (pageOption && (pageOption.page < 1 || pageOption.pageSize < 1)) {
       throw new WrongRangeError('Page and pageSize must be greater than 0');
     }
 
-    const skip = (page - 1) * pageSize;
-    const take = pageSize;
+    const whereCondition = ids && ids.length > 0 ? { id: { in: ids } } : {};
 
-    const productEntitis = await this.client.product.findMany({
-      skip,
+    const productEntities = await this.client.product.findMany({
+      skip, // skip과 take는 pageOption이 있을 때만 적용됩니다.
       take,
+      where: whereCondition,
       orderBy: {
         registedAt: 'desc',
       },
     });
 
-    const products = productEntitis.map(
+    const products = productEntities.map(
       (entity) =>
         new Product(
           entity.id,
