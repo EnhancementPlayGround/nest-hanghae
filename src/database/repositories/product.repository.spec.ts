@@ -7,7 +7,7 @@ import DatabaseClient from '../database.client';
 
 describe('데이터베이스 상품 조회 테스트', () => {
   let repo: ProductRepository;
-  let client: DatabaseClient
+  let client: DatabaseClient;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,8 +20,8 @@ describe('데이터베이스 상품 조회 테스트', () => {
   });
 
   afterEach(async () => {
-    await client.product.deleteMany()
-  })
+    await client.product.deleteMany();
+  });
 
   it('ids를 제공하는 경우, 해당 id 값을 가진 product만 조회한다.', async () => {
     const products = createNProducts(20);

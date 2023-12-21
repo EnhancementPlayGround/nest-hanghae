@@ -19,9 +19,9 @@ describe('주문 / 결제 API (e2e)', () => {
   });
 
   afterEach(async () => {
-    await dbClient.product.deleteMany({})
-    await dbClient.account.deleteMany({})
-  })
+    await dbClient.product.deleteMany({});
+    await dbClient.account.deleteMany({});
+  });
 
   it('/order (POST) - 주문 생성', async () => {
     await dbClient.product.create({

@@ -15,7 +15,7 @@ export class Product {
 
   purchase(quantityToPurchase: number): number {
     if (quantityToPurchase > this.quantity) {
-      throw new InsufficientStockError("Insufficient stock");
+      throw new InsufficientStockError('Insufficient stock');
     }
 
     this.quantity -= quantityToPurchase;
@@ -23,7 +23,7 @@ export class Product {
     return totalPrice;
   }
 
-  getRemainingQuantity(){
-    return this.quantity
+  getRemainingQuantity() {
+    return this.quantity;
   }
 }
