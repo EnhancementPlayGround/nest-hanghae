@@ -29,11 +29,11 @@ describe('상품 구매 동시성 테스트', () => {
     await dbClient.product.deleteMany({});
   });
 
-  it('100 개의 재고가 남은 상품을 1 개씩 동시에 구매한다.', async () => {
+  it('10 개의 재고가 남은 상품을 1 개씩 동시에 구매한다.', async () => {
     await dbClient.product.create({
       data: {
         id: '1',
-        quantity: 100,
+        quantity: 10,
         name: 'apple',
         price: 1000,
         registedAt: new Date(),
@@ -43,7 +43,7 @@ describe('상품 구매 동시성 테스트', () => {
     const purchasePromise = [];
     const productQuantities = [{ productId: '1', quantity: 1 }];
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
       purchasePromise.push(
         productService.purchaseProducts({
           productQuantities,

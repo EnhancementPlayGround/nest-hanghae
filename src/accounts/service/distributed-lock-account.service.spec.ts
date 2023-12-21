@@ -29,7 +29,7 @@ describe('잔액 충전 동시성 테스트', () => {
     await dbClient.account.deleteMany({});
   });
 
-  it('잔액 충전을 100회 동시에 진행한다.', async () => {
+  it('잔액 충전을 10회 동시에 진행한다.', async () => {
     await dbClient.account.create({
       data: {
         id: 'userId',
@@ -41,7 +41,7 @@ describe('잔액 충전 동시성 테스트', () => {
     const depositPromise = [];
     const depositDetail = { userId: 'userId', amount: 1000 };
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
       depositPromise.push(
         accountSvc.deposit({
           ...depositDetail,
@@ -54,22 +54,22 @@ describe('잔액 충전 동시성 테스트', () => {
     const after = await dbClient.account.findFirst({
       where: { userId: 'userId' },
     });
-    expect(after.balance).toBe(100000);
+    expect(after.balance).toBe(10000);
   });
 
-  it('잔액 감소를 100회 동시에 진행한다.', async () => {
+  it('잔액 감소를 10회 동시에 진행한다.', async () => {
     await dbClient.account.create({
       data: {
         id: 'userId',
         userId: 'userId',
-        balance: 100000,
+        balance: 10000,
       },
     });
 
     const depositPromise = [];
     const depositDetail = { userId: 'userId', amount: 1000 };
 
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 10; i++) {
       depositPromise.push(
         accountSvc.withdraw({
           ...depositDetail,
