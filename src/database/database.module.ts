@@ -3,6 +3,7 @@ import DatabaseClient from './database.client';
 import ProductRepository from './repositories/product.repository';
 import AccountRepository from './repositories/account.repository';
 import { RedisModule } from '@nestjs-modules/ioredis';
+import OrderRepository from './repositories/order.repository';
 
 @Module({
   imports: [
@@ -30,7 +31,14 @@ import { RedisModule } from '@nestjs-modules/ioredis';
       },
       inject: [DatabaseClient],
     },
+    {
+      provide: 'IOrderRepositry',
+      useFactory: (client) => {
+        return new OrderRepository(client);
+      },
+      inject: [DatabaseClient],
+    },
   ],
-  exports: ['IProductRepositry', 'IAccountRepository'],
+  exports: ['IProductRepositry', 'IAccountRepository', 'IOrderRepositry'],
 })
 export class DatabaseModule {}
