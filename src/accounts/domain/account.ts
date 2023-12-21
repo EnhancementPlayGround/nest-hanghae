@@ -2,8 +2,8 @@ export class InsufficientFundsError extends Error {}
 
 export default class Account {
   constructor(
-    private readonly userId: string,
-    private balance: number,
+    public readonly userId: string,
+    public balance: number,
   ) {}
 
   public withdraw(amount: number) {

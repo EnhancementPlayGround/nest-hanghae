@@ -20,7 +20,7 @@ model Product {
 
 model Account {
   id        String   @id
-  userId    String
+  userId    String   @unique
   balance   Float
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
