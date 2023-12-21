@@ -48,5 +48,31 @@ describe('잔액 충전 동시성 테스트', () => {
       const after = await dbClient.account.findFirst({ where: { userId: 'userId' } });
       expect(after.balance).toBe(100000);
     });
+
+    it('잔액 감소를 100회 동시에 진행한다.', async () => {
+      await dbClient.account.create({
+        data: {
+          id: 'userId',
+          userId: 'userId',
+          balance: 100000
+        },
+      });
+  
+      const depositPromise = [];
+      const depositDetail = { userId: 'userId', amount: 1000 };
+  
+      for (let i = 0; i < 100; i++) {
+        depositPromise.push(
+            accountSvc.withdraw({
+                ...depositDetail,
+          }),
+        );
+      }
+  
+      await Promise.all(depositPromise);
+  
+      const after = await dbClient.account.findFirst({ where: { userId: 'userId' } });
+      expect(after.balance).toBe(0);
+    });
   });
   
