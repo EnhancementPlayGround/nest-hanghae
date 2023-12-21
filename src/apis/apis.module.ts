@@ -9,6 +9,11 @@ import OrderController from './order.controller';
 
 @Module({
   imports: [ProductsModule, HealthModule, AccountsModule],
-  controllers: [ProductController, HealthController, AccountController, OrderController],
+  controllers: [
+    ProductController,
+    HealthController,
+    AccountController,
+    OrderController,
+  ],
 })
 export class ApisModule {}
