@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { HealthModule } from './health/health.module';
 import { ConfigModule } from '@nestjs/config';
 import { ApisModule } from './apis/apis.module';
+import { ShareModule } from './share/share.module';
 
 @Module({
   imports: [
@@ -10,6 +11,7 @@ import { ApisModule } from './apis/apis.module';
       isGlobal: true,
     }),
     ApisModule,
+    ShareModule,
   ],
   controllers: [],
   providers: [],

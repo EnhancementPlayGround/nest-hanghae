@@ -53,7 +53,7 @@ export default class ProductRepository implements IProductRepository {
 
     for (const product of products) {
       const { id, name, price, quantity, registedAt } = product;
-  
+
       await this.client.product.upsert({
         where: { id },
         update: {
