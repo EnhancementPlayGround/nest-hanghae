@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
 import AccountService from './service/account.service';
 import { DatabaseModule } from '@/database/database.module';
+import DistributedLockAccountService from './service/distributed-lock-account.service';
 
 @Module({
   imports: [DatabaseModule],
-  providers: [AccountService],
-  exports: [AccountService],
+  providers: [AccountService, DistributedLockAccountService],
+  exports: [AccountService, DistributedLockAccountService],
 })
 export class AccountsModule {}

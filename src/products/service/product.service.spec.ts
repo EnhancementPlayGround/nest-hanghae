@@ -2,7 +2,6 @@ import { Product } from '../domain/product';
 import IProductRepository from './IProduct.repository';
 import { ProductService } from './product.service';
 
-
 describe('상품 구매 로직 테스트', () => {
   let mockRepo: IProductRepository;
   let productService: ProductService;

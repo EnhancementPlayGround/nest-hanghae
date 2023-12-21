@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import DatabaseClient from '@/database/database.client';
 import IAccountRepository, {
-  FindAccountOptions, SaveProductOptions,
+  FindAccountOptions,
+  SaveProductOptions,
 } from '@/accounts/service/IAccount.repository';
 import Account from '@/accounts/domain/account';
 
@@ -25,12 +26,12 @@ export default class AccountRepository implements IAccountRepository {
       await this.client.account.upsert({
         where: { userId },
         update: {
-          balance
+          balance,
         },
         create: {
           id: userId,
           userId,
-          balance
+          balance,
         },
       });
     }

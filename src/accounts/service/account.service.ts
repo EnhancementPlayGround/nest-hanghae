@@ -30,14 +30,14 @@ export default class AccountService {
   async deposit({ userId, amount }: IDeposit) {
     const account = await this.accountRepo.findAccount({ userId });
     account.deposit(amount);
-    await this.accountRepo.save({accounts: account})
+    await this.accountRepo.save({ accounts: account });
     return account.getBalance();
   }
 
   async withdraw({ userId, amount }: IWithdraw) {
     const account = await this.accountRepo.findAccount({ userId });
     account.withdraw(amount);
-    await this.accountRepo.save({accounts: account})
+    await this.accountRepo.save({ accounts: account });
     return account.getBalance();
   }
 }

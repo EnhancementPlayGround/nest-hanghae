@@ -4,8 +4,8 @@ import { DatabaseModule } from '@/database/database.module';
 
 @Global()
 @Module({
-    imports: [DatabaseModule],
-    providers:[DistributedLockManager],
-    exports: [DistributedLockManager]
+  imports: [DatabaseModule],
+  providers: [DistributedLockManager],
+  exports: [DistributedLockManager],
 })
 export class ShareModule {}
