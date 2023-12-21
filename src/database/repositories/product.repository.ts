@@ -51,20 +51,26 @@ export default class ProductRepository implements IProductRepository {
       products = [products];
     }
 
-    const productData = products.map(
-      ({ id, name, price, quantity, registedAt }) => ({
-        id,
-        name,
-        price,
-        quantity,
-        registedAt,
-      }),
-    );
-
-    await this.client.product.createMany({
-      data: productData,
-      skipDuplicates: true,
-    });
+    for (const product of products) {
+      const { id, name, price, quantity, registedAt } = product;
+  
+      await this.client.product.upsert({
+        where: { id },
+        update: {
+          name,
+          price,
+          quantity,
+          registedAt,
+        },
+        create: {
+          id,
+          name,
+          price,
+          quantity,
+          registedAt,
+        },
+      });
+    }
 
     return products;
   }
