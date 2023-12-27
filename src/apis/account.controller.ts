@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
-import AccountService from '@/accounts/service/account.service';
+import AccountService from '@/application/accounts/account.service';
 import { AccountBalanceQueryDto } from './dto/account-balance.query';
 
 @Controller('accounts')

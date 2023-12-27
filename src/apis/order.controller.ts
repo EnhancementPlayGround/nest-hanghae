@@ -1,4 +1,4 @@
-import DistributedLockAccountService from '@/accounts/service/distributed-lock-account.service';
+import DistributedLockAccountService from '@/application/accounts/distributed-lock-account.service';
 import { OrderService } from '@/application/orders/OrderService';
 import DistributedLockProductService from '@/application/products/distributed-lock-product.service';
 import { Body, Controller, Post } from '@nestjs/common';
