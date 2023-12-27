@@ -1,8 +1,6 @@
 import DatabaseClient from '@/core/DatabaseClient';
 import { TestingModule, Test } from '@nestjs/testing';
 import DistributedLockProductService from '../src/application/products/DistributedLockProductService';
-import { DistributedLockManager } from '../src/core/DistributedLockManager';
-import { ProductService } from '../src/application/products/ProductService';
 import { ProductId } from '@/domain/products/ProductId';
 import { AppModule } from '@/app.module';
 
@@ -37,7 +35,7 @@ describe('상품 구매 동시성 테스트', () => {
     });
 
     const purchasePromise = [];
-    const productQuantities = [{ productId: new ProductId('1'), quantity: 1 }];
+    const productQuantities = [{ productId: '1', quantity: 1 }];
 
     for (let i = 0; i < 10; i++) {
       purchasePromise.push(
