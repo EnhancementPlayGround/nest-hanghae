@@ -3,8 +3,8 @@ import DatabaseClient from '@/database/database.client';
 import IAccountRepository, {
   FindAccountOptions,
   SaveProductOptions,
-} from '@/accounts/service/IAccount.repository';
-import Account from '@/accounts/domain/account';
+} from '@/domain/accounts/IAccountRepository';
+import Account from '@/domain/accounts/Account';
 
 @Injectable()
 export default class AccountRepository implements IAccountRepository {

@@ -1,4 +1,6 @@
-import { Product } from '../domain/product';
+import { Product } from './Product';
+
+export const ProductRepositoryKey = 'ProductRepository';
 
 export class WrongRangeError extends Error {
   constructor(msg: string) {

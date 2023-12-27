@@ -1,5 +1,6 @@
-import { InsufficientStockError, Product } from './product';
+import { InsufficientStockError, Product } from './Product';
 import * as faker from 'faker';
+import { ProductId } from './ProductId';
 
 describe('상품 구매 테스트', () => {
   it('구매 수량이 상품 수량보다 많으면 구매할 수 없다.', () => {
@@ -23,12 +24,11 @@ describe('상품 구매 테스트', () => {
   });
 
   function createProduct(price: number, quantity: number) {
-    return new Product(
-      faker.datatype.uuid(),
-      faker.commerce.productName(),
+    return Product.create({
+      id: new ProductId(faker.datatype.uuid()),
+      name: faker.commerce.productName(),
       price,
       quantity,
-      new Date(),
-    );
+    })
   }
 });

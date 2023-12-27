@@ -1,4 +1,6 @@
-import Account from '../domain/account';
+import Account from './Account';
+
+export const AccountRepositoryKey = 'AccountRepository';
 
 export interface FindAccountOptions {
   userId: string;

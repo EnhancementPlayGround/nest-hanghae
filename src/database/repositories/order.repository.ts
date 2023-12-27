@@ -1,9 +1,9 @@
 import IOrderRepository, {
   SaveOrderOptions,
-} from '@/orders/service/IOrder.repository';
+} from '@/domain/orders/IOrderRepository';
 import { Injectable } from '@nestjs/common';
 import DatabaseClient from '../database.client';
-import { OrderItem } from '@/orders/domain/order';
+import { OrderItem } from '@/domain/orders/Order';
 
 @Injectable()
 export default class OrderRepository implements IOrderRepository {

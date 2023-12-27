@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
-import { Order, OrderItem } from '../domain/order';
+import { Order, OrderItem } from '../../domain/orders/Order';
 import { v1 as uuid } from 'uuid';
-import IOrderRepository from './IOrder.repository';
+import IOrderRepository from '../../domain/orders/IOrderRepository';
 
 export interface ICreateOrder {
   userId: string;

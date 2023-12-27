@@ -1,7 +1,7 @@
 import { TestingModule, Test } from '@nestjs/testing';
 import { DatabaseModule } from '../database.module';
 import ProductRepository from './product.repository';
-import { Product } from '@/products/domain/product';
+import { Product } from '@/domain/products/Product';
 import * as faker from 'faker';
 import DatabaseClient from '../database.client';
 

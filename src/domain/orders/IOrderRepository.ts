@@ -1,4 +1,6 @@
-import { Order } from '../domain/order';
+import { Order } from './Order';
+
+export const OrderRepositoryKey = 'OrderRepository';
 
 export interface SaveOrderOptions {
   order: Order;

@@ -1,5 +1,6 @@
 import * as faker from 'faker';
-import Account, { InsufficientFundsError } from './account';
+import Account, { InsufficientFundsError } from './Account';
+import { AccountId } from './AccountId';
 
 describe('잔액 차감 테스트', () => {
   it('유저 잔액이 지불 금액보다 크면 주문을 할 수 없다.', () => {
@@ -22,6 +23,10 @@ describe('잔액 차감 테스트', () => {
   });
 
   function createAccount(amount: number) {
-    return new Account(faker.datatype.uuid(), amount);
+    return Account.create({
+      id: new AccountId(faker.datatype.uuid()),
+      userId: faker.datatype.uuid(),
+      balance: amount
+    });
   }
 });

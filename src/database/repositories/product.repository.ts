@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import DatabaseClient from '@/database/database.client';
-import { Product } from '@/products/domain/product';
+import { Product } from '@/domain/products/Product';
 import IProductRepository, {
   FindProductOptions,
   SaveProductOptions,
   WrongRangeError,
-} from '@/products/service/IProduct.repository';
+} from '@/domain/products/IProductRepository';
 
 @Injectable()
 export default class ProductRepository implements IProductRepository {

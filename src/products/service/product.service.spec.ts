@@ -1,5 +1,5 @@
-import { Product } from '../domain/product';
-import IProductRepository from './IProduct.repository';
+import { Product } from '../../domain/products/Product';
+import IProductRepository from '../../domain/products/IProductRepository';
 import { ProductService } from './product.service';
 
 describe('상품 구매 로직 테스트', () => {
