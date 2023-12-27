@@ -1,9 +1,8 @@
 import DatabaseClient from '@/infra/persistance/DatabaseClient';
-import { DatabaseModule } from '@/database/database.module';
 import { TestingModule, Test } from '@nestjs/testing';
-import DistributedLockProductService from './distributed-lock-product.service';
-import { DistributedLockManager } from '../../infra/persistance/DistributedLockManager';
-import { ProductService } from './product.service';
+import DistributedLockProductService from '../src/application/products/DistributedLockProductService';
+import { DistributedLockManager } from '../src/infra/persistance/DistributedLockManager';
+import { ProductService } from '../src/application/products/ProductService';
 import { ProductId } from '@/domain/products/ProductId';
 
 describe('상품 구매 동시성 테스트', () => {
@@ -12,7 +11,6 @@ describe('상품 구매 동시성 테스트', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [DatabaseModule],
       providers: [
         ProductService,
         DistributedLockProductService,

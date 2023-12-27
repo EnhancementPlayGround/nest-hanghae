@@ -1,6 +1,6 @@
-import DistributedLockAccountService from '@/application/accounts/distributed-lock-account.service';
+import DistributedLockAccountService from '@/application/accounts/DistributedLockAccountService';
 import { OrderService } from '@/application/orders/OrderService';
-import DistributedLockProductService from '@/application/products/distributed-lock-product.service';
+import DistributedLockProductService from '@/application/products/DistributedLockProductService';
 import { Body, Controller, Post } from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
 

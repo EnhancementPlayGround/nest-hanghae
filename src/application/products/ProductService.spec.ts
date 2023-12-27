@@ -1,6 +1,6 @@
 import { Product } from '../../domain/products/Product';
 import IProductRepository from '../../domain/products/IProductRepository';
-import { ProductService } from './product.service';
+import { ProductService } from './ProductService';
 import { ProductId } from '@/domain/products/ProductId';
 import * as faker from 'faker';
 

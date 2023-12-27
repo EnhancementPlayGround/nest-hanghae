@@ -1,9 +1,8 @@
 import DatabaseClient from '@/infra/persistance/DatabaseClient';
-import { DatabaseModule } from '@/database/database.module';
 import { TestingModule, Test } from '@nestjs/testing';
 import { DistributedLockManager } from '../../infra/persistance/DistributedLockManager';
-import DistributedLockAccountService from './distributed-lock-account.service';
-import AccountService from './account.service';
+import DistributedLockAccountService from './DistributedLockAccountService';
+import AccountService from './AccountService';
 
 describe('잔액 충전 동시성 테스트', () => {
   let accountSvc: DistributedLockAccountService;
@@ -11,7 +10,6 @@ describe('잔액 충전 동시성 테스트', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [DatabaseModule],
       providers: [
         AccountService,
         DistributedLockAccountService,

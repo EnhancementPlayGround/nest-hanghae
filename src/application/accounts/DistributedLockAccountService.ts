@@ -1,6 +1,6 @@
 import { DistributedLockManager } from '@/infra/persistance/DistributedLockManager';
 import { Injectable } from '@nestjs/common';
-import AccountService, { IDeposit, IWithdraw } from './account.service';
+import AccountService, { IDeposit, IWithdraw } from './AccountService';
 
 @Injectable()
 export default class DistributedLockAccountService {
