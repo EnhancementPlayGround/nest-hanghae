@@ -1,16 +1,18 @@
 import { Injectable } from '@nestjs/common';
 import DatabaseClient from '@/infra/persistance/DatabaseClient';
-import { Product } from '@/domain/products/Product';
 import IProductRepository, {
   FindProductOptions,
   SaveProductOptions,
   WrongRangeError,
 } from '@/domain/products/IProductRepository';
-import { ProductId } from '@/domain/products/ProductId';
+import { ProductEntityMapper } from './ProductEntityMapper';
 
 @Injectable()
 export default class ProductRepository implements IProductRepository {
-  constructor(private readonly client: DatabaseClient) {}
+  constructor(
+    private readonly client: DatabaseClient,
+    private readonly productMapper: ProductEntityMapper,
+  ) {}
 
   async findProducts({ pageOption, ids }: FindProductOptions) {
     const skip = pageOption
@@ -34,16 +36,7 @@ export default class ProductRepository implements IProductRepository {
       },
     });
 
-    const products = productEntities.map((entity) =>
-      Product.create({
-        id: new ProductId(entity.id),
-        name: entity.name,
-        price: entity.price,
-        quantity: entity.quantity,
-      }),
-    );
-
-    return products;
+    return productEntities.map((entity) => this.productMapper.toDomain(entity));
   }
 
   async save({ products }: SaveProductOptions) {
