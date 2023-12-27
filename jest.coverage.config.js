@@ -16,5 +16,14 @@ module.exports = {
       "src/**/*.(t|j)s"
     ],
     coverageDirectory: "../coverage",
-    testEnvironment: "node"
+    testEnvironment: "node",
+    collectCoverage: true,
+    coverageThreshold: {
+      global: {
+        "branches": 75,
+        "functions": 75,
+        "lines": 75,
+        "statements": 75
+      }
+    }
   };
