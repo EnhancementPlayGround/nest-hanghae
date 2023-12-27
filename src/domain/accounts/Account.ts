@@ -1,4 +1,4 @@
-import { AccountId } from "./AccountId";
+import { AccountId } from './AccountId';
 
 export class InsufficientFundsError extends Error {}
 

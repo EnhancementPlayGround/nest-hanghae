@@ -1,4 +1,4 @@
-import { ProductId } from "./ProductId";
+import { ProductId } from './ProductId';
 
 export class InsufficientStockError extends Error {
   constructor(msg: string) {
@@ -15,7 +15,12 @@ export class Product {
     public readonly registedAt: Date,
   ) {}
 
-  static create(param: { id: ProductId; name: string; price: number; quantity: number; }) {
+  static create(param: {
+    id: ProductId;
+    name: string;
+    price: number;
+    quantity: number;
+  }) {
     const { id, name, price, quantity } = param;
 
     return new Product(id, name, price, quantity, new Date());

@@ -26,7 +26,7 @@ describe('잔액 차감 테스트', () => {
     return Account.create({
       id: new AccountId(faker.datatype.uuid()),
       userId: faker.datatype.uuid(),
-      balance: amount
+      balance: amount,
     });
   }
 });

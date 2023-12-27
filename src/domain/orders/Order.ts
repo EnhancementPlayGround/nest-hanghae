@@ -1,5 +1,5 @@
-import { OrderId } from "./OderId";
-import { OrderItemId } from "./OrderItemId";
+import { OrderId } from './OderId';
+import { OrderItemId } from './OrderItemId';
 
 export class Order {
   constructor(
@@ -9,12 +9,16 @@ export class Order {
     public readonly orderItems: OrderItem[],
   ) {}
 
-  static create(param: { id: OrderId; userId: string; totalAmount: number; orderItems: OrderItem[]; }) {
+  static create(param: {
+    id: OrderId;
+    userId: string;
+    totalAmount: number;
+    orderItems: OrderItem[];
+  }) {
     const { id, userId, totalAmount, orderItems } = param;
 
     return new Order(id, userId, totalAmount, orderItems);
   }
-  
 }
 
 export class OrderItem {
@@ -24,9 +28,9 @@ export class OrderItem {
     public readonly quantity: number,
   ) {}
 
-  static create(param: { id: OrderId; productId: string; quantity: number; }){
+  static create(param: { id: OrderId; productId: string; quantity: number }) {
     const { id, productId, quantity } = param;
 
-    return new OrderItem(id, productId, quantity );
+    return new OrderItem(id, productId, quantity);
   }
 }

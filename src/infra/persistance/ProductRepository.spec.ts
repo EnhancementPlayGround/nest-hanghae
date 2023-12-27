@@ -1,9 +1,8 @@
 import { TestingModule, Test } from '@nestjs/testing';
-import { DatabaseModule } from '../database.module';
-import ProductRepository from './product.repository';
+import ProductRepository from './ProductRepository';
 import { Product } from '@/domain/products/Product';
 import * as faker from 'faker';
-import DatabaseClient from '../database.client';
+import DatabaseClient from './DatabaseClient';
 
 describe('데이터베이스 상품 조회 테스트', () => {
   let repo: ProductRepository;
@@ -11,7 +10,6 @@ describe('데이터베이스 상품 조회 테스트', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [DatabaseModule],
       providers: [DatabaseClient, ProductRepository],
     }).compile();
 

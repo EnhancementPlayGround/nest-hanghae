@@ -39,8 +39,8 @@ export class ProductService {
     let totalAmount = 0;
 
     for (const product of products) {
-      const { quantity } = productQuantities.find(
-        (pq) => pq.productId.equals(product.id),
+      const { quantity } = productQuantities.find((pq) =>
+        pq.productId.equals(product.id),
       );
 
       const amount = product.purchase(quantity);

@@ -1,11 +1,12 @@
 import { Injectable } from '@nestjs/common';
-import DatabaseClient from '@/database/database.client';
+import DatabaseClient from '@/infra/persistance/DatabaseClient';
 import { Product } from '@/domain/products/Product';
 import IProductRepository, {
   FindProductOptions,
   SaveProductOptions,
   WrongRangeError,
 } from '@/domain/products/IProductRepository';
+import { ProductId } from '@/domain/products/ProductId';
 
 @Injectable()
 export default class ProductRepository implements IProductRepository {
@@ -21,7 +22,7 @@ export default class ProductRepository implements IProductRepository {
       throw new WrongRangeError('Page and pageSize must be greater than 0');
     }
 
-    const whereCondition = ids && ids.length > 0 ? { id: { in: ids } } : {};
+    const whereCondition = ids && ids.length > 0 ? { id: { in: ids.map(id => id.key) } } : {};
 
     const productEntities = await this.client.product.findMany({
       skip, // skip과 take는 pageOption이 있을 때만 적용됩니다.
@@ -34,12 +35,12 @@ export default class ProductRepository implements IProductRepository {
 
     const products = productEntities.map(
       (entity) =>
-        new Product(
-          entity.id,
-          entity.name,
-          entity.price,
-          entity.quantity,
-          entity.registedAt,
+        Product.create({
+          id: new ProductId(entity.id),
+          name: entity.name,
+          price: entity.price,
+          quantity: entity.quantity,
+        }
         ),
     );
 
@@ -55,7 +56,7 @@ export default class ProductRepository implements IProductRepository {
       const { id, name, price, quantity, registedAt } = product;
 
       await this.client.product.upsert({
-        where: { id },
+        where: { id: id.key },
         update: {
           name,
           price,
@@ -63,7 +64,7 @@ export default class ProductRepository implements IProductRepository {
           registedAt,
         },
         create: {
-          id,
+          id: id.key,
           name,
           price,
           quantity,

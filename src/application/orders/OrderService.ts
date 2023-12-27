@@ -21,19 +21,18 @@ export class OrderService {
   ) {}
 
   async createOrder({ userId, orders, totalAmount }: ICreateOrder) {
-
-    const orderItems = orders.map(
-      (orderItem) => OrderItem.create({
-        id: new OrderItemId(uuid()), 
+    const orderItems = orders.map((orderItem) =>
+      OrderItem.create({
+        id: new OrderItemId(uuid()),
         ...orderItem,
       }),
     );
 
     const order = Order.create({
-      id: new OrderId(uuid()), 
-      userId, 
-      totalAmount, 
-      orderItems
+      id: new OrderId(uuid()),
+      userId,
+      totalAmount,
+      orderItems,
     });
 
     return await this.repo.save({ order });

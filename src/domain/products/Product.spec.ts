@@ -29,6 +29,6 @@ describe('상품 구매 테스트', () => {
       name: faker.commerce.productName(),
       price,
       quantity,
-    })
+    });
   }
 });

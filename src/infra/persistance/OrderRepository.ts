@@ -2,7 +2,7 @@ import IOrderRepository, {
   SaveOrderOptions,
 } from '@/domain/orders/IOrderRepository';
 import { Injectable } from '@nestjs/common';
-import DatabaseClient from '../database.client';
+import DatabaseClient from './DatabaseClient';
 import { OrderItem } from '@/domain/orders/Order';
 
 @Injectable()
@@ -15,12 +15,12 @@ export default class OrderRepository implements IOrderRepository {
     try {
       await this.client.order.create({
         data: {
-          id,
+          id: id.key,
           userId,
           totalAmount,
           orderItems: {
             create: orderItems.map((item) => ({
-              id: item.id,
+              id: item.id.key,
               productId: item.productId,
               quantity: item.quantity,
             })),

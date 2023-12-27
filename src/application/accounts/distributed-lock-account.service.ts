@@ -1,4 +1,4 @@
-import { DistributedLockManager } from '@/share/distributed-lock.manager';
+import { DistributedLockManager } from '@/infra/persistance/DistributedLockManager';
 import { Injectable } from '@nestjs/common';
 import AccountService, { IDeposit, IWithdraw } from './account.service';
 

@@ -1,10 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import DatabaseClient from '@/database/database.client';
 import IAccountRepository, {
   FindAccountOptions,
   SaveProductOptions,
 } from '@/domain/accounts/IAccountRepository';
 import Account from '@/domain/accounts/Account';
+import DatabaseClient from './DatabaseClient';
+import { AccountId } from '@/domain/accounts/AccountId';
 
 @Injectable()
 export default class AccountRepository implements IAccountRepository {
@@ -12,7 +13,7 @@ export default class AccountRepository implements IAccountRepository {
 
   async findAccount({ userId }: FindAccountOptions) {
     const entity = await this.client.account.findFirst({ where: { userId } });
-    return new Account(entity.userId, entity.balance);
+    return Account.create({id: new AccountId(entity.id), userId: entity.userId, balance: entity.balance});
   }
 
   async save({ accounts }: SaveProductOptions) {
