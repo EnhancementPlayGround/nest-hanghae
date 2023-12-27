@@ -1,12 +1,10 @@
 import AccountService from './application/accounts/AccountService';
-import DistributedLockAccountService from './application/accounts/DistributedLockAccountService';
 import { AccountsEntityMapper } from './infra/persistance/accounts/AccountsEntityMapper';
 import AccountRepository from './infra/persistance/accounts/AccountRepository';
 import { OrderService } from './application/orders/OrderService';
 import OrderRepository from './infra/persistance/orders/OrderRepository';
 import { OrderEntityMapper } from './infra/persistance/orders/OrderEntityMapper';
 import { ProductService } from './application/products/ProductService';
-import DistributedLockProductService from './application/products/DistributedLockProductService';
 import ProductRepository from './infra/persistance/products/ProductRepository';
 import { ProductEntityMapper } from './infra/persistance/products/ProductEntityMapper';
 import AccountController from './infra/apis/account.controller';
@@ -17,7 +15,6 @@ import { OrderItemEntityMapper } from './infra/persistance/orders/OrderItemEntit
 
 export const AccountProviders = [
   AccountService,
-  DistributedLockAccountService,
   AccountsEntityMapper,
   {
     provide: 'AccountRepository',
@@ -37,7 +34,6 @@ export const OrderProviders = [
 
 export const ProductProviders = [
   ProductService,
-  DistributedLockProductService,
   ProductEntityMapper,
   {
     provide: 'ProductRepository',

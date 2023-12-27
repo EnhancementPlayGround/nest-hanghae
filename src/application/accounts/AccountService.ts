@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import IAccountRepository, {
   AccountRepositoryKey,
 } from '../../domain/accounts/IAccountRepository';
+import { DistributedLock } from '@/core/DistributedLockDecorator';
 
 export interface IGetBalance {
   userId: string;
@@ -29,6 +30,7 @@ export default class AccountService {
     return account.getBalance();
   }
 
+  @DistributedLock({ lockName: 'account' })
   async deposit({ userId, amount }: IDeposit) {
     const account = await this.accountRepo.findAccount({ userId });
     account.deposit(amount);
@@ -36,6 +38,7 @@ export default class AccountService {
     return account.getBalance();
   }
 
+  @DistributedLock({ lockName: 'account' })
   async withdraw({ userId, amount }: IWithdraw) {
     const account = await this.accountRepo.findAccount({ userId });
     account.withdraw(amount);

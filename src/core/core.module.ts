@@ -5,9 +5,12 @@ import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { HttpModule } from '@nestjs/axios';
 import { EnvHealthIndicator } from './EnvHealthIndicator';
+import { DistributedLockDecorator } from './DistributedLockInterceptor';
+import { DiscoveryModule } from '@nestjs/core';
 
 @Module({
   imports: [
+    DiscoveryModule,
     RedisModule.forRoot({
       config: {
         host: process.env.REDIS_HOST,
@@ -18,12 +21,18 @@ import { EnvHealthIndicator } from './EnvHealthIndicator';
     TerminusModule,
     HttpModule,
   ],
-  providers: [DatabaseClient, DistributedLockManager, EnvHealthIndicator],
+  providers: [
+    DatabaseClient,
+    DistributedLockManager,
+    EnvHealthIndicator,
+    DistributedLockDecorator,
+  ],
   exports: [
     DatabaseClient,
     DistributedLockManager,
     TerminusModule,
     EnvHealthIndicator,
+    DistributedLockDecorator,
   ],
 })
 export class CoreModule {}

@@ -3,6 +3,7 @@ import IProductRepository, {
   ProductRepositoryKey,
 } from '../../domain/products/IProductRepository';
 import { ProductId } from '@/domain/products/ProductId';
+import { DistributedLock } from '@/core/DistributedLockDecorator';
 
 export interface IFindProductsByPage {
   page: number;
@@ -34,6 +35,7 @@ export class ProductService {
     return this.repo.findProducts({ ids: ids.map((id) => new ProductId(id)) });
   }
 
+  @DistributedLock({ lockName: 'products' })
   async purchaseProducts({ productQuantities }: IPurchaseProducts) {
     const ids = productQuantities.map((pq) => pq.productId);
     const products = await this.repo.findProducts({

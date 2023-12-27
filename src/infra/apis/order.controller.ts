@@ -1,14 +1,14 @@
-import DistributedLockAccountService from '@/application/accounts/DistributedLockAccountService';
+import AccountService from '@/application/accounts/AccountService';
 import { OrderService } from '@/application/orders/OrderService';
-import DistributedLockProductService from '@/application/products/DistributedLockProductService';
+import { ProductService } from '@/application/products/ProductService';
 import { Body, Controller, Post } from '@nestjs/common';
 
 @Controller('order')
 export default class OrderController {
   constructor(
-    private readonly distributedLockProductSvc: DistributedLockProductService,
-    private readonly distributedLockAccountSvc: DistributedLockAccountService,
+    private readonly productSvc: ProductService,
     private readonly orderService: OrderService,
+    private readonly accountSvc: AccountService,
   ) {}
 
   @Post()
@@ -18,11 +18,11 @@ export default class OrderController {
   ) {
     const { userId, orders } = body;
 
-    const totalPrice = await this.distributedLockProductSvc.purchaseProducts({
+    const totalPrice = await this.productSvc.purchaseProducts({
       productQuantities: orders,
     });
 
-    const newBalance = await this.distributedLockAccountSvc.withdraw({
+    const newBalance = await this.accountSvc.withdraw({
       userId,
       amount: totalPrice,
     });
