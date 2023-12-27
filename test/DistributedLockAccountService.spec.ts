@@ -1,8 +1,8 @@
-import DatabaseClient from '@/infra/persistance/DatabaseClient';
+import DatabaseClient from '@/core/DatabaseClient';
 import { TestingModule, Test } from '@nestjs/testing';
-import { DistributedLockManager } from '../../infra/persistance/DistributedLockManager';
-import DistributedLockAccountService from './DistributedLockAccountService';
-import AccountService from './AccountService';
+import { DistributedLockManager } from '../src/core/DistributedLockManager';
+import DistributedLockAccountService from '../src/application/accounts/DistributedLockAccountService';
+import AccountService from '../src/application/accounts/AccountService';
 
 describe('잔액 충전 동시성 테스트', () => {
   let accountSvc: DistributedLockAccountService;

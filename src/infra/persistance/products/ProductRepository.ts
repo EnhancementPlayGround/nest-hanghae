@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import DatabaseClient from '@/infra/persistance/DatabaseClient';
+import DatabaseClient from '@/core/DatabaseClient';
 import IProductRepository, {
   FindProductOptions,
   SaveProductOptions,

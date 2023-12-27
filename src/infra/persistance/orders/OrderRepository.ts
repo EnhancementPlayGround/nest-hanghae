@@ -2,7 +2,7 @@ import IOrderRepository, {
   SaveOrderOptions,
 } from '@/domain/orders/IOrderRepository';
 import { Injectable } from '@nestjs/common';
-import DatabaseClient from '../DatabaseClient';
+import DatabaseClient from '../../../core/DatabaseClient';
 import { OrderEntityMapper } from './OrderEntityMapper';
 
 @Injectable()

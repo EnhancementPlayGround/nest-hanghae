@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import IProductRepository from '../../domain/products/IProductRepository';
+import IProductRepository, { ProductRepositoryKey } from '../../domain/products/IProductRepository';
 import { ProductId } from '@/domain/products/ProductId';
 
 export interface IFindProductsByPage {
@@ -21,7 +21,7 @@ export interface IPurchaseProducts {
 @Injectable()
 export class ProductService {
   constructor(
-    @Inject('IProductRepositry') private readonly repo: IProductRepository,
+    @Inject(ProductRepositoryKey) private readonly repo: IProductRepository,
   ) {}
 
   async findProductsByPage({ page, pageSize }: IFindProductsByPage) {

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { DistributedLockManager } from '../../infra/persistance/DistributedLockManager';
+import { DistributedLockManager } from '../../core/DistributedLockManager';
 import { IPurchaseProducts, ProductService } from './ProductService';
 
 @Injectable()

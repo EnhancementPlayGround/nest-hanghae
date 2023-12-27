@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Order, OrderItem } from '../../domain/orders/Order';
 import { v1 as uuid } from 'uuid';
-import IOrderRepository from '../../domain/orders/IOrderRepository';
+import IOrderRepository, { OrderRepositoryKey } from '../../domain/orders/IOrderRepository';
 import { OrderItemId } from '@/domain/orders/OrderItemId';
 import { OrderId } from '@/domain/orders/OderId';
 
@@ -17,7 +17,7 @@ export interface ICreateOrder {
 @Injectable()
 export class OrderService {
   constructor(
-    @Inject('IOrderRepositry') private readonly repo: IOrderRepository,
+    @Inject(OrderRepositoryKey) private readonly repo: IOrderRepository,
   ) {}
 
   async createOrder({ userId, orders, totalAmount }: ICreateOrder) {

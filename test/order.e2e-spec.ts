@@ -1,5 +1,5 @@
 import { AppModule } from './../src/app.module';
-import DatabaseClient from '@/infra/persistance/DatabaseClient';
+import DatabaseClient from '@/core/DatabaseClient';
 import { INestApplication } from '@nestjs/common';
 import { TestingModule, Test } from '@nestjs/testing';
 import * as request from 'supertest';

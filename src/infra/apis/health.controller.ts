@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { HealthCheckService, HealthCheck } from '@nestjs/terminus';
-import { EnvHealthIndicator } from './indecators/EnvHealthIndicator';
+import { EnvHealthIndicator } from '../../core/EnvHealthIndicator';
 
 @Controller('health')
 export class HealthController {

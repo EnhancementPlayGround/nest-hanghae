@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import IAccountRepository from '../../domain/accounts/IAccountRepository';
+import IAccountRepository, { AccountRepositoryKey } from '../../domain/accounts/IAccountRepository';
 
 export interface IGetBalance {
   userId: string;
@@ -18,7 +18,7 @@ export interface IWithdraw {
 @Injectable()
 export default class AccountService {
   constructor(
-    @Inject('IAccountRepository')
+    @Inject(AccountRepositoryKey)
     private readonly accountRepo: IAccountRepository,
   ) {}
 

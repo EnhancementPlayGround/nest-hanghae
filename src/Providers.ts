@@ -9,30 +9,40 @@ import { ProductService } from './application/products/ProductService';
 import DistributedLockProductService from './application/products/DistributedLockProductService';
 import ProductRepository from './infra/persistance/products/ProductRepository';
 import { ProductEntityMapper } from './infra/persistance/products/ProductEntityMapper';
-import { DistributedLockManager } from './infra/persistance/DistributedLockManager';
 import AccountController from './infra/apis/account.controller';
 import { HealthController } from './infra/apis/health.controller';
 import OrderController from './infra/apis/order.controller';
 import ProductController from './infra/apis/product.controller';
+import { OrderItemEntityMapper } from './infra/persistance/orders/OrderItemEntityMapper';
 
 export const AccountProviders = [
   AccountService,
   DistributedLockAccountService,
-  AccountRepository,
   AccountsEntityMapper,
+  {
+    provide: 'AccountRepository',
+    useClass: AccountRepository,
+  }
 ];
 
 export const OrderProviders = [
   OrderService,
-  OrderRepository,
   OrderEntityMapper,
+  {
+    provide: 'OrderRepository',
+    useClass: OrderRepository,
+  },
+  OrderItemEntityMapper
 ];
 
 export const ProductProviders = [
   ProductService,
   DistributedLockProductService,
-  ProductRepository,
   ProductEntityMapper,
+  {
+    provide: 'ProductRepository',
+    useClass: ProductRepository,
+  }
 ];
 
 export const ControllerProviders = [

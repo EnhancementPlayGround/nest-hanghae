@@ -1,7 +1,7 @@
-import DatabaseClient from '@/infra/persistance/DatabaseClient';
+import DatabaseClient from '@/core/DatabaseClient';
 import { TestingModule, Test } from '@nestjs/testing';
 import DistributedLockProductService from '../src/application/products/DistributedLockProductService';
-import { DistributedLockManager } from '../src/infra/persistance/DistributedLockManager';
+import { DistributedLockManager } from '../src/core/DistributedLockManager';
 import { ProductService } from '../src/application/products/ProductService';
 import { ProductId } from '@/domain/products/ProductId';
 

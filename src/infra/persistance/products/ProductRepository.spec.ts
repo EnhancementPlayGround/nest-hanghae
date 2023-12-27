@@ -2,7 +2,7 @@ import { TestingModule, Test } from '@nestjs/testing';
 import ProductRepository from './ProductRepository';
 import { Product } from '@/domain/products/Product';
 import * as faker from 'faker';
-import DatabaseClient from './DatabaseClient';
+import DatabaseClient from '../../../core/DatabaseClient';
 
 describe('데이터베이스 상품 조회 테스트', () => {
   let repo: ProductRepository;

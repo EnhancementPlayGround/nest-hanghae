@@ -3,7 +3,7 @@ import IAccountRepository, {
   FindAccountOptions,
   SaveProductOptions,
 } from '@/domain/accounts/IAccountRepository';
-import DatabaseClient from '../DatabaseClient';
+import DatabaseClient from '../../../core/DatabaseClient';
 import { AccountsEntityMapper } from './AccountsEntityMapper';
 
 @Injectable()
