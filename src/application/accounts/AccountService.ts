@@ -1,5 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import IAccountRepository, { AccountRepositoryKey } from '../../domain/accounts/IAccountRepository';
+import IAccountRepository, {
+  AccountRepositoryKey,
+} from '../../domain/accounts/IAccountRepository';
 
 export interface IGetBalance {
   userId: string;

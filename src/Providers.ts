@@ -22,7 +22,7 @@ export const AccountProviders = [
   {
     provide: 'AccountRepository',
     useClass: AccountRepository,
-  }
+  },
 ];
 
 export const OrderProviders = [
@@ -32,7 +32,7 @@ export const OrderProviders = [
     provide: 'OrderRepository',
     useClass: OrderRepository,
   },
-  OrderItemEntityMapper
+  OrderItemEntityMapper,
 ];
 
 export const ProductProviders = [
@@ -42,7 +42,7 @@ export const ProductProviders = [
   {
     provide: 'ProductRepository',
     useClass: ProductRepository,
-  }
+  },
 ];
 
 export const ControllerProviders = [

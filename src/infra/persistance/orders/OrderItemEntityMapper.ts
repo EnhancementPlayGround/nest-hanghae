@@ -16,7 +16,11 @@ export class OrderItemEntityMapper extends EntityMapper<
 > {
   toDomain(entity: OrderItemEntity): OrderItem {
     const { id, productId, quantity } = entity;
-    return new OrderItem(new OrderItemId(id), new ProductId(productId), quantity);
+    return new OrderItem(
+      new OrderItemId(id),
+      new ProductId(productId),
+      quantity,
+    );
   }
 
   toEntity(

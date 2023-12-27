@@ -17,8 +17,7 @@ export default class OrderController {
     @Body()
     body: any,
   ) {
-
-    const {userId, orders} = body
+    const { userId, orders } = body;
 
     const totalPrice = await this.distributedLockProductSvc.purchaseProducts({
       productQuantities: orders,
