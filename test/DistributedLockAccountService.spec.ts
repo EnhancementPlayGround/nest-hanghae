@@ -3,22 +3,19 @@ import { TestingModule, Test } from '@nestjs/testing';
 import { DistributedLockManager } from '../src/core/DistributedLockManager';
 import DistributedLockAccountService from '../src/application/accounts/DistributedLockAccountService';
 import AccountService from '../src/application/accounts/AccountService';
+import { AppModule } from '@/app.module';
 
 describe('잔액 충전 동시성 테스트', () => {
   let accountSvc: DistributedLockAccountService;
   let dbClient: DatabaseClient;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        AccountService,
-        DistributedLockAccountService,
-        DistributedLockManager,
-      ],
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
     }).compile();
 
-    dbClient = module.get<DatabaseClient>(DatabaseClient);
-    accountSvc = module.get<DistributedLockAccountService>(
+    dbClient = moduleFixture.get<DatabaseClient>(DatabaseClient);
+    accountSvc = moduleFixture.get<DistributedLockAccountService>(
       DistributedLockAccountService,
     );
   });

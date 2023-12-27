@@ -23,7 +23,7 @@ export default class OrderRepository implements IOrderRepository {
         orderItems: {
           create: orderItems.map((item) => ({
             id: item.id.key,
-            productId: item.productId,
+            productId: item.productId.key,
             quantity: item.quantity,
           })),
         },

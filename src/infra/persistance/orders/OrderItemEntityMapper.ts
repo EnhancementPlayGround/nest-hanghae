@@ -6,6 +6,7 @@ import { AccountId } from '@/domain/accounts/AccountId';
 import { Order, OrderItem } from '@/domain/orders/Order';
 import { OrderId } from '@/domain/orders/OderId';
 import { OrderItemId } from '@/domain/orders/OrderItemId';
+import { ProductId } from '@/domain/products/ProductId';
 
 @Injectable()
 export class OrderItemEntityMapper extends EntityMapper<
@@ -15,7 +16,7 @@ export class OrderItemEntityMapper extends EntityMapper<
 > {
   toDomain(entity: OrderItemEntity): OrderItem {
     const { id, productId, quantity } = entity;
-    return new OrderItem(new OrderItemId(id), productId, quantity);
+    return new OrderItem(new OrderItemId(id), new ProductId(productId), quantity);
   }
 
   toEntity(
@@ -27,7 +28,7 @@ export class OrderItemEntityMapper extends EntityMapper<
 
     return {
       id: id.key,
-      productId,
+      productId: productId.key,
       quantity,
       orderId: orderId.key,
     };

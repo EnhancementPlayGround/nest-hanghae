@@ -21,8 +21,8 @@ export class AccountsEntityMapper extends EntityMapper<
       id: id.key,
       userId,
       balance,
-      createdAt: null,
-      updatedAt: null,
+      createdAt: undefined,
+      updatedAt: undefined,
     };
   }
 }

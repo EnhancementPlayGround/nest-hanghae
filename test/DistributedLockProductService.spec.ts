@@ -4,22 +4,19 @@ import DistributedLockProductService from '../src/application/products/Distribut
 import { DistributedLockManager } from '../src/core/DistributedLockManager';
 import { ProductService } from '../src/application/products/ProductService';
 import { ProductId } from '@/domain/products/ProductId';
+import { AppModule } from '@/app.module';
 
 describe('상품 구매 동시성 테스트', () => {
   let productService: DistributedLockProductService;
   let dbClient: DatabaseClient;
 
   beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        ProductService,
-        DistributedLockProductService,
-        DistributedLockManager,
-      ],
+    const moduleFixture: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
     }).compile();
 
-    dbClient = module.get<DatabaseClient>(DatabaseClient);
-    productService = module.get<DistributedLockProductService>(
+    dbClient = moduleFixture.get<DatabaseClient>(DatabaseClient);
+    productService = moduleFixture.get<DistributedLockProductService>(
       DistributedLockProductService,
     );
   });

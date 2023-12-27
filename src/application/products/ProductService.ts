@@ -8,12 +8,12 @@ export interface IFindProductsByPage {
 }
 
 export interface IFindProductsByIds {
-  ids: ProductId[];
+  ids: string[];
 }
 
 export interface IPurchaseProducts {
   productQuantities: {
-    productId: ProductId;
+    productId: string;
     quantity: number;
   }[];
 }
@@ -29,18 +29,18 @@ export class ProductService {
   }
 
   async findProductsByIds({ ids }: IFindProductsByIds) {
-    return this.repo.findProducts({ ids });
+    return this.repo.findProducts({ ids: ids.map(id => (new ProductId(id))) });
   }
 
   async purchaseProducts({ productQuantities }: IPurchaseProducts) {
     const ids = productQuantities.map((pq) => pq.productId);
-    const products = await this.repo.findProducts({ ids });
+    const products = await this.repo.findProducts({ ids: ids.map(id => (new ProductId(id))) });
 
     let totalAmount = 0;
 
     for (const product of products) {
       const { quantity } = productQuantities.find((pq) =>
-        pq.productId.equals(product.id),
+        pq.productId === product.id.key,
       );
 
       const amount = product.purchase(quantity);

@@ -1,6 +1,7 @@
 import DistributedLockAccountService from '@/application/accounts/DistributedLockAccountService';
 import { OrderService } from '@/application/orders/OrderService';
 import DistributedLockProductService from '@/application/products/DistributedLockProductService';
+import { ProductId } from '@/domain/products/ProductId';
 import { Body, Controller, Post } from '@nestjs/common';
 
 @Controller('order')
@@ -14,8 +15,11 @@ export default class OrderController {
   @Post()
   async createOrder(
     @Body()
-    { userId, orders }: any,
+    body: any,
   ) {
+
+    const {userId, orders} = body
+
     const totalPrice = await this.distributedLockProductSvc.purchaseProducts({
       productQuantities: orders,
     });
