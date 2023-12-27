@@ -1,7 +1,5 @@
-import { AppModule } from './../src/app.module';
 import DatabaseClient from '@/core/DatabaseClient';
 import { INestApplication } from '@nestjs/common';
-import { TestingModule, Test } from '@nestjs/testing';
 import * as request from 'supertest';
 import { E2ETestUtils } from './helper/e2e-test-utils';
 

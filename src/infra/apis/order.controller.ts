@@ -1,7 +1,6 @@
 import DistributedLockAccountService from '@/application/accounts/DistributedLockAccountService';
 import { OrderService } from '@/application/orders/OrderService';
 import DistributedLockProductService from '@/application/products/DistributedLockProductService';
-import { ProductId } from '@/domain/products/ProductId';
 import { Body, Controller, Post } from '@nestjs/common';
 
 @Controller('order')

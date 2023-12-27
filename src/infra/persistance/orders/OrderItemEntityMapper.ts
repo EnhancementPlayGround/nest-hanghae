@@ -1,9 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { OrderItem as OrderItemEntity } from '@prisma/client';
 import { EntityMapper } from '../EntityMapper';
-import Account from '@/domain/accounts/Account';
-import { AccountId } from '@/domain/accounts/AccountId';
-import { Order, OrderItem } from '@/domain/orders/Order';
+import { OrderItem } from '@/domain/orders/Order';
 import { OrderId } from '@/domain/orders/OderId';
 import { OrderItemId } from '@/domain/orders/OrderItemId';
 import { ProductId } from '@/domain/products/ProductId';

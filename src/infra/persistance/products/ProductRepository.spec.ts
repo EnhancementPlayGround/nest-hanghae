@@ -4,7 +4,6 @@ import { Product } from '@/domain/products/Product';
 import * as faker from 'faker';
 import DatabaseClient from '../../../core/DatabaseClient';
 import { ProductEntityMapper } from './ProductEntityMapper';
-import { ProductProviders } from '@/Providers';
 import { CoreModule } from '@/core/core.module';
 import { ProductId } from '@/domain/products/ProductId';
 
