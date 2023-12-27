@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
+import { AccountProviders, ControllerProviders, OrderProviders, ProductProviders } from './Providers';
 
 @Module({
   imports: [
@@ -7,7 +8,11 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
     }),
   ],
-  controllers: [],
-  providers: [],
+  controllers: [...ControllerProviders],
+  providers: [
+    ...AccountProviders,
+    ...ProductProviders,
+    ...OrderProviders
+  ],
 })
 export class AppModule {}
