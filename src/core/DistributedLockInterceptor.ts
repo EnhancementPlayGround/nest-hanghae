@@ -54,6 +54,13 @@ export class DistributedLockDecorator implements OnModuleInit {
     retryDelay: number,
     ...args: any[]
   ) {
+    const userIdIndex = args.findIndex(arg => arg && typeof arg === 'object' && 'userId' in arg);
+    
+    if (userIdIndex !== -1) {
+      const userId = args[userIdIndex].userId;
+      lockName = lockName + `.${userId}`;
+    }
+
     await this.lockManager.tryAcquireLock(lockName, maxRetries, retryDelay);
     try {
       return await methodRef.apply(context, args);
