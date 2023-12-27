@@ -22,8 +22,8 @@ describe('상품 구매 로직 테스트', () => {
     jest.spyOn(mockRepo, 'findProducts').mockResolvedValue(products);
 
     const productQuantities = [
-      { productId: new ProductId('1'), quantity: 2 },
-      { productId: new ProductId('2'), quantity: 3 },
+      { productId: '1', quantity: 2 },
+      { productId: '2', quantity: 3 },
     ];
 
     // given

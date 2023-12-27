@@ -3,25 +3,21 @@ import DatabaseClient from '@/core/DatabaseClient';
 import { INestApplication } from '@nestjs/common';
 import { TestingModule, Test } from '@nestjs/testing';
 import * as request from 'supertest';
+import { E2ETestUtils } from './helper/e2e-test-utils';
 
 describe('잔액 API (e2e)', () => {
+  let utils: E2ETestUtils;
   let app: INestApplication;
   let dbClient: DatabaseClient;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    dbClient = moduleFixture.get<DatabaseClient>(DatabaseClient);
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    utils = new E2ETestUtils();
+    await utils.setupModule();
+    ({ app, dbClient } = utils.getTestResources());
   });
 
   afterEach(async () => {
-    await dbClient.product.deleteMany({});
-    await dbClient.account.deleteMany({});
-    await app.close();
+    await utils.tearDown();
   });
 
   it('/accounts (POST) - 잔액 충전 동시성 테스트', async () => {

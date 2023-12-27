@@ -1,29 +1,21 @@
-import { AppModule } from './../src/app.module';
 import DatabaseClient from '@/core/DatabaseClient';
 import { INestApplication } from '@nestjs/common';
-import { TestingModule, Test } from '@nestjs/testing';
 import * as request from 'supertest';
+import { E2ETestUtils } from './helper/e2e-test-utils';
 
 describe('주문 / 결제 API (e2e)', () => {
+  let utils: E2ETestUtils;
   let app: INestApplication;
   let dbClient: DatabaseClient;
 
   beforeEach(async () => {
-    const moduleFixture: TestingModule = await Test.createTestingModule({
-      imports: [AppModule],
-    }).compile();
-
-    dbClient = moduleFixture.get<DatabaseClient>(DatabaseClient);
-    app = moduleFixture.createNestApplication();
-    await app.init();
+    utils = new E2ETestUtils();
+    await utils.setupModule();
+    ({ app, dbClient } = utils.getTestResources());
   });
 
   afterEach(async () => {
-    await dbClient.product.deleteMany({});
-    await dbClient.account.deleteMany({});
-    await dbClient.orderItem.deleteMany({});
-    await dbClient.order.deleteMany({});
-    await app.close();
+    await utils.tearDown();
   });
 
   it('/order (POST) - 주문 생성', async () => {
@@ -36,6 +28,7 @@ describe('주문 / 결제 API (e2e)', () => {
         registedAt: new Date(),
       },
     });
+
     await dbClient.product.create({
       data: {
         id: 'prod2',
@@ -45,6 +38,7 @@ describe('주문 / 결제 API (e2e)', () => {
         registedAt: new Date(),
       },
     });
+
     await dbClient.account.create({
       data: {
         id: 'user123',

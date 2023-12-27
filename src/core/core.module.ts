@@ -2,10 +2,10 @@ import DatabaseClient from '@/core/DatabaseClient';
 import { DistributedLockManager } from '@/core/DistributedLockManager';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import { Module } from '@nestjs/common';
-import { HealthCheckService, TerminusModule } from '@nestjs/terminus';
+import { TerminusModule } from '@nestjs/terminus';
 import { HttpModule } from '@nestjs/axios';
-import { HealthCheckExecutor } from '@nestjs/terminus/dist/health-check/health-check-executor.service';
 import { EnvHealthIndicator } from './EnvHealthIndicator';
+
 @Module({
   imports: [
     RedisModule.forRoot({

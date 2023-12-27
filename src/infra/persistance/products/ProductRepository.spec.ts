@@ -3,6 +3,10 @@ import ProductRepository from './ProductRepository';
 import { Product } from '@/domain/products/Product';
 import * as faker from 'faker';
 import DatabaseClient from '../../../core/DatabaseClient';
+import { ProductEntityMapper } from './ProductEntityMapper';
+import { ProductProviders } from '@/Providers';
+import { CoreModule } from '@/core/core.module';
+import { ProductId } from '@/domain/products/ProductId';
 
 describe('데이터베이스 상품 조회 테스트', () => {
   let repo: ProductRepository;
@@ -10,7 +14,8 @@ describe('데이터베이스 상품 조회 테스트', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [DatabaseClient, ProductRepository],
+      imports: [CoreModule],
+      providers: [ProductRepository, ProductEntityMapper],
     }).compile();
 
     repo = module.get<ProductRepository>(ProductRepository);
@@ -56,7 +61,7 @@ describe('데이터베이스 상품 조회 테스트', () => {
 
   function createProduct({ registedAt }: { registedAt: Date }) {
     return new Product(
-      faker.datatype.uuid(),
+      new ProductId(faker.datatype.uuid()),
       faker.commerce.productName(),
       parseInt(faker.commerce.price()),
       faker.datatype.number({ min: 0, max: 100 }), // 수량은 0에서 100 사이
