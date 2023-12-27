@@ -1,4 +1,3 @@
-import { ProductsModule } from '@/products/products.module';
 import { Module } from '@nestjs/common';
 import ProductController from './product.controller';
 import { HealthController } from './health.controller';
@@ -9,7 +8,7 @@ import OrderController from './order.controller';
 import { OrdersModule } from '@/orders/orders.module';
 
 @Module({
-  imports: [ProductsModule, HealthModule, AccountsModule, OrdersModule],
+  imports: [HealthModule, AccountsModule, OrdersModule],
   controllers: [
     ProductController,
     HealthController,

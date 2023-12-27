@@ -1,4 +1,5 @@
 import { Product } from './Product';
+import { ProductId } from './ProductId';
 
 export const ProductRepositoryKey = 'ProductRepository';
 
@@ -13,7 +14,7 @@ export interface FindProductOptions {
     page: number;
     pageSize: number;
   };
-  ids?: string[];
+  ids?: ProductId[];
 }
 
 export interface SaveProductOptions {

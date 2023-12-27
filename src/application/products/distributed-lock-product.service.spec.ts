@@ -4,6 +4,7 @@ import { TestingModule, Test } from '@nestjs/testing';
 import DistributedLockProductService from './distributed-lock-product.service';
 import { DistributedLockManager } from '../../share/distributed-lock.manager';
 import { ProductService } from './product.service';
+import { ProductId } from '@/domain/products/ProductId';
 
 describe('상품 구매 동시성 테스트', () => {
   let productService: DistributedLockProductService;
@@ -41,7 +42,9 @@ describe('상품 구매 동시성 테스트', () => {
     });
 
     const purchasePromise = [];
-    const productQuantities = [{ productId: '1', quantity: 1 }];
+    const productQuantities = [
+      { productId: new ProductId('1'), quantity: 1 },
+    ];
 
     for (let i = 0; i < 10; i++) {
       purchasePromise.push(

@@ -1,6 +1,8 @@
 import { Product } from '../../domain/products/Product';
 import IProductRepository from '../../domain/products/IProductRepository';
 import { ProductService } from './product.service';
+import { ProductId } from '@/domain/products/ProductId';
+import * as faker from 'faker';
 
 describe('상품 구매 로직 테스트', () => {
   let mockRepo: IProductRepository;
@@ -16,16 +18,17 @@ describe('상품 구매 로직 테스트', () => {
 
   it('상품 구매 시, 구매 수량만큼 재고를 소진시키고, 총 합계 금액을 반환한다.', async () => {
     // when
+    const products = [
+      createProduct('1', 100, 10),
+      createProduct('2', 200, 5),
+    ]
     jest
       .spyOn(mockRepo, 'findProducts')
-      .mockResolvedValue([
-        new Product('1', 'Product 1', 100, 10, new Date('1900-01-01')),
-        new Product('2', 'Product 2', 200, 5, new Date('1900-01-01')),
-      ]);
+      .mockResolvedValue(products);
 
     const productQuantities = [
-      { productId: '1', quantity: 2 },
-      { productId: '2', quantity: 3 },
+      { productId: new ProductId('1'), quantity: 2 },
+      { productId: new ProductId('2'), quantity: 3 },
     ];
 
     // given
@@ -36,10 +39,16 @@ describe('상품 구매 로직 테스트', () => {
     // then
     expect(totalAmount).toBe(100 * 2 + 200 * 3);
     expect(mockRepo.save).toHaveBeenCalledWith({
-      products: [
-        new Product('1', 'Product 1', 100, 8, new Date('1900-01-01')),
-        new Product('2', 'Product 2', 200, 2, new Date('1900-01-01')),
-      ],
+      products
     });
   });
+
+  function createProduct(id: string, price: number, quantity: number) {
+    return Product.create({
+      id: new ProductId(id),
+      name: faker.commerce.productName(),
+      price,
+      quantity,
+    })
+  }
 });

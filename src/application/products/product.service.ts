@@ -1,5 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import IProductRepository from '../../domain/products/IProductRepository';
+import { ProductId } from '@/domain/products/ProductId';
 
 export interface IFindProductsByPage {
   page: number;
@@ -7,12 +8,12 @@ export interface IFindProductsByPage {
 }
 
 export interface IFindProductsByIds {
-  ids: string[];
+  ids: ProductId[];
 }
 
 export interface IPurchaseProducts {
   productQuantities: {
-    productId: string;
+    productId: ProductId;
     quantity: number;
   }[];
 }
@@ -39,7 +40,7 @@ export class ProductService {
 
     for (const product of products) {
       const { quantity } = productQuantities.find(
-        (pq) => pq.productId === product.id,
+        (pq) => pq.productId.equals(product.id),
       );
 
       const amount = product.purchase(quantity);

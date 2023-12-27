@@ -1,4 +1,4 @@
-import { ProductService } from '@/products/service/product.service';
+import { ProductService } from '@/application/products/product.service';
 import { Controller, Get, Query } from '@nestjs/common';
 import { ProductQueryDto } from './dto/product.query';
 
