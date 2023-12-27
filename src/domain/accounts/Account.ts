@@ -4,7 +4,7 @@ export class InsufficientFundsError extends Error {}
 
 export default class Account {
   constructor(
-    private readonly id: AccountId,
+    public readonly id: AccountId,
     public readonly userId: string,
     public balance: number,
   ) {}

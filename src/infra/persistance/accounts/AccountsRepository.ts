@@ -3,17 +3,19 @@ import IAccountRepository, {
   FindAccountOptions,
   SaveProductOptions,
 } from '@/domain/accounts/IAccountRepository';
-import Account from '@/domain/accounts/Account';
-import DatabaseClient from './DatabaseClient';
-import { AccountId } from '@/domain/accounts/AccountId';
+import DatabaseClient from '../DatabaseClient';
+import { AccountsEntityMapper } from './AccountsEntityMapper';
 
 @Injectable()
 export default class AccountRepository implements IAccountRepository {
-  constructor(private readonly client: DatabaseClient) {}
+  constructor(
+    private readonly client: DatabaseClient,
+    private readonly entityMapper: AccountsEntityMapper,
+  ) {}
 
   async findAccount({ userId }: FindAccountOptions) {
     const entity = await this.client.account.findFirst({ where: { userId } });
-    return Account.create({id: new AccountId(entity.id), userId: entity.userId, balance: entity.balance});
+    return this.entityMapper.toDomain(entity);
   }
 
   async save({ accounts }: SaveProductOptions) {
@@ -29,11 +31,7 @@ export default class AccountRepository implements IAccountRepository {
         update: {
           balance,
         },
-        create: {
-          id: userId,
-          userId,
-          balance,
-        },
+        create: this.entityMapper.toEntity(account),
       });
     }
 
