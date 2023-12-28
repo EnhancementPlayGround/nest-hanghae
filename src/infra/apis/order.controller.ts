@@ -2,6 +2,7 @@ import AccountService from '@/application/accounts/AccountService';
 import { OrderService } from '@/application/orders/OrderService';
 import { ProductService } from '@/application/products/ProductService';
 import { Body, Controller, Post } from '@nestjs/common';
+import { CreateOrderDto } from './dto/create-order.dto';
 
 @Controller('order')
 export default class OrderController {
@@ -14,10 +15,8 @@ export default class OrderController {
   @Post()
   async createOrder(
     @Body()
-    body: any,
+    { userId, orders }: CreateOrderDto,
   ) {
-    const { userId, orders } = body;
-
     const totalPrice = await this.productSvc.purchaseProducts({
       productQuantities: orders,
     });

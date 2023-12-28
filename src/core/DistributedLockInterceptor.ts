@@ -47,15 +47,17 @@ export class DistributedLockDecorator implements OnModuleInit {
   }
 
   async applyDistributedLock(
-    methodRef: Function,
+    methodRef: any,
     context: any,
     lockName: string,
     maxRetries: number,
     retryDelay: number,
     ...args: any[]
   ) {
-    const userIdIndex = args.findIndex(arg => arg && typeof arg === 'object' && 'userId' in arg);
-    
+    const userIdIndex = args.findIndex(
+      (arg) => arg && typeof arg === 'object' && 'userId' in arg,
+    );
+
     if (userIdIndex !== -1) {
       const userId = args[userIdIndex].userId;
       lockName = lockName + `.${userId}`;
