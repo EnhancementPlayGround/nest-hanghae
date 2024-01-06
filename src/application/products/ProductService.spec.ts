@@ -16,7 +16,7 @@ describe('상품 구매 로직 테스트', () => {
     productService = new ProductService(mockRepo);
   });
 
-  it('상품 구매 시, 구매 수량만큼 재고를 소진시키고, 총 합계 금액을 반환한다.', async () => {
+  it('상품 구매 시, 구매 수량만큼 재고를 소진시키고, 총 수량을 반환한다.', async () => {
     // when
     const products = [createProduct('1', 100, 10), createProduct('2', 200, 5)];
     jest.spyOn(mockRepo, 'findProducts').mockResolvedValue(products);
@@ -27,12 +27,12 @@ describe('상품 구매 로직 테스트', () => {
     ];
 
     // given
-    const totalAmount = await productService.decreaseProductsQuantity({
+    const totalPrice = await productService.purchaseProducts({
       productQuantities,
     });
 
     // then
-    expect(totalAmount).toBe(100 * 2 + 200 * 3);
+    expect(totalPrice).toBe(100 * 2 + 200 * 3);
     expect(mockRepo.save).toHaveBeenCalledWith({
       products,
     });

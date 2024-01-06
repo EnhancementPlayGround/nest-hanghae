@@ -32,7 +32,7 @@ export class Product {
     }
 
     this.quantity -= quantityToDecrease;
-    return this.quantity
+    return this.quantity;
   }
 
   increaseQuantity(quantityToIncrease: number): number {
@@ -41,7 +41,7 @@ export class Product {
     }
 
     this.quantity += quantityToIncrease;
-    return this.quantity
+    return this.quantity;
   }
 
   getRemainingQuantity() {

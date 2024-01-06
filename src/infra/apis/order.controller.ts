@@ -17,24 +17,45 @@ export default class OrderController {
     @Body()
     { userId, orders }: CreateOrderDto,
   ) {
-    const totalPrice = await this.productSvc.decreaseProductsQuantity({
+    const totalPrice = await this.productSvc.purchaseProducts({
       productQuantities: orders,
     });
 
-    const newBalance = await this.accountSvc.withdraw({
-      userId,
-      amount: totalPrice,
-    });
+    const newBalance = await this.withdraw({ userId, orders, totalPrice });
 
-    await this.orderService.createOrder({
-      userId,
-      orders,
-      totalAmount: newBalance,
-    });
+    await this.saveOrder({ userId, orders, totalPrice });
 
     return {
       success: true,
       newBalance,
     };
+  }
+
+  private async withdraw({ userId, orders, totalPrice }) {
+    try {
+      return await this.accountSvc.withdraw({
+        userId,
+        amount: totalPrice,
+      });
+    } catch (ex) {
+      await this.productSvc.increaseProductsQuantity({
+        productQuantities: orders,
+      });
+    }
+  }
+
+  private async saveOrder({ userId, orders, totalPrice }) {
+    try {
+      await this.orderService.createOrder({
+        userId,
+        orders,
+        totalAmount: totalPrice,
+      });
+    } catch (ex) {
+      await this.productSvc.increaseProductsQuantity({
+        productQuantities: orders,
+      });
+      await this.accountSvc.deposit({ userId, amount: totalPrice });
+    }
   }
 }

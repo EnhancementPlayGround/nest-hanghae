@@ -14,7 +14,14 @@ export interface IFindProductsByIds {
   ids: string[];
 }
 
-export interface IdecreaseProductsQuantity {
+export interface IDecreaseProductsQuantity {
+  productQuantities: {
+    productId: string;
+    quantity: number;
+  }[];
+}
+
+export interface IIecreaseProductsQuantity {
   productQuantities: {
     productId: string;
     quantity: number;
@@ -36,7 +43,7 @@ export class ProductService {
   }
 
   @DistributedLock({ lockName: 'products' })
-  async decreaseProductsQuantity({ productQuantities }: IdecreaseProductsQuantity) {
+  async purchaseProducts({ productQuantities }: IDecreaseProductsQuantity) {
     const ids = productQuantities.map((pq) => pq.productId);
     const products = await this.repo.findProducts({
       ids: ids.map((id) => new ProductId(id)),
@@ -49,12 +56,35 @@ export class ProductService {
         (pq) => pq.productId === product.id.key,
       );
 
-      const amount = product.decreaseQuantity(quantity);
-      totalAmount += amount;
+      product.decreaseQuantity(quantity);
+      totalAmount += product.price * quantity;
     }
 
     await this.repo.save({ products });
 
     return totalAmount;
+  }
+
+  @DistributedLock({ lockName: 'products' })
+  async increaseProductsQuantity({
+    productQuantities,
+  }: IIecreaseProductsQuantity) {
+    const ids = productQuantities.map((pq) => pq.productId);
+    const products = await this.repo.findProducts({
+      ids: ids.map((id) => new ProductId(id)),
+    });
+
+    let totalAmount = 0;
+
+    for (const product of products) {
+      const { quantity } = productQuantities.find(
+        (pq) => pq.productId === product.id.key,
+      );
+
+      const amount = product.increaseQuantity(quantity);
+      totalAmount += amount;
+    }
+
+    return await this.repo.save({ products });
   }
 }
