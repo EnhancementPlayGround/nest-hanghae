@@ -7,10 +7,10 @@ import { OrderEntityMapper } from './infra/persistance/orders/OrderEntityMapper'
 import { ProductService } from './application/products/ProductService';
 import ProductRepository from './infra/persistance/products/ProductRepository';
 import { ProductEntityMapper } from './infra/persistance/products/ProductEntityMapper';
-import AccountController from './infra/apis/account.controller';
-import { HealthController } from './infra/apis/health.controller';
-import OrderController from './infra/apis/order.controller';
-import ProductController from './infra/apis/product.controller';
+import AccountController from './presentation/account.controller';
+import { HealthController } from './presentation/health.controller';
+import OrderController from './presentation/order.controller';
+import ProductController from './presentation/product.controller';
 import { OrderItemEntityMapper } from './infra/persistance/orders/OrderItemEntityMapper';
 
 export const AccountProviders = [
