@@ -1,5 +1,5 @@
 import OrderCreatedEvent from '@/domain/orders/OrderCreatedEvent';
-import AnalyticsManager from '@/infra/external-apis/AnalyticsManager';
+import AnalyticsManager from '@/core/external-apis/AnalyticsManager';
 import { EventsHandler, IEventHandler } from '@nestjs/cqrs';
 
 @EventsHandler(OrderCreatedEvent)

@@ -26,7 +26,13 @@ import AnalyticsManager from './external-apis/AnalyticsManager';
     HttpModule,
   ],
   providers: [
-    DatabaseClient,
+    {
+      provide: DatabaseClient,
+      useFactory: (logger: Logger) => {
+        return new DatabaseClient(logger);
+      },
+      inject: [Logger],
+    },
     DistributedLockManager,
     EnvHealthIndicator,
     DistributedLockDecorator,
