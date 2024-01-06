@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import IAccountRepository, {
   AccountRepositoryKey,
 } from '../../domain/accounts/IAccountRepository';
-import { DistributedLock } from '@/core/DistributedLockDecorator';
+import { DistributedLock } from '@/core/distributed-lock/DistributedLockDecorator';
 
 export interface IGetBalance {
   userId: string;

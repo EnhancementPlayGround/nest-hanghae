@@ -3,7 +3,7 @@ import IProductRepository, {
   ProductRepositoryKey,
 } from '../../domain/products/IProductRepository';
 import { ProductId } from '@/domain/products/ProductId';
-import { DistributedLock } from '@/core/DistributedLockDecorator';
+import { DistributedLock } from '@/core/distributed-lock/DistributedLockDecorator';
 
 export interface IFindProductsByPage {
   page: number;

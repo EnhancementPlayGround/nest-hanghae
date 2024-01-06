@@ -1,12 +1,15 @@
 import DatabaseClient from '@/core/DatabaseClient';
-import { DistributedLockManager } from '@/core/DistributedLockManager';
+import { DistributedLockManager } from '@/core/distributed-lock/DistributedLockManager';
 import { RedisModule } from '@nestjs-modules/ioredis';
 import { Module } from '@nestjs/common';
 import { TerminusModule } from '@nestjs/terminus';
 import { HttpModule } from '@nestjs/axios';
-import { EnvHealthIndicator } from './EnvHealthIndicator';
-import { DistributedLockDecorator } from './DistributedLockInterceptor';
+import { EnvHealthIndicator } from './health/EnvHealthIndicator';
+import { DistributedLockDecorator } from './distributed-lock/DistributedLockInterceptor';
 import { DiscoveryModule } from '@nestjs/core';
+import { CloudwatchLoggerAddon } from './logger/CloudwatchLoggerAddon';
+import { CloudWatchLogsClient } from '@aws-sdk/client-cloudwatch-logs';
+import Logger from './logger/Logger';
 
 @Module({
   imports: [
@@ -26,6 +29,26 @@ import { DiscoveryModule } from '@nestjs/core';
     DistributedLockManager,
     EnvHealthIndicator,
     DistributedLockDecorator,
+    {
+      provide: CloudwatchLoggerAddon,
+      useFactory: () => {
+        const cloudWatchClient = new CloudWatchLogsClient({
+          credentials: {
+            accessKeyId: process.env.AWS_ACCESS_KEY,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+          },
+          region: process.env.CLOUDWATCH_REGION,
+        });
+        const cloudwatchConfig = {
+          groupName: process.env.CLOUDWATCH_GROUP,
+          stream_info: process.env.CLOUDWATCH_STREAM_INFO,
+          stream_error: process.env.CLOUDWATCH_STREAM_ERROR,
+        };
+        return new CloudwatchLoggerAddon(cloudWatchClient, cloudwatchConfig);
+      },
+      inject: [],
+    },
+    Logger,
   ],
   exports: [
     DatabaseClient,
@@ -33,6 +56,7 @@ import { DiscoveryModule } from '@nestjs/core';
     TerminusModule,
     EnvHealthIndicator,
     DistributedLockDecorator,
+    Logger,
   ],
 })
 export class CoreModule {}
