@@ -1,8 +1,16 @@
 import AccountService from '@/application/accounts/AccountService';
 import { OrderService } from '@/application/orders/OrderService';
 import { ProductService } from '@/application/products/ProductService';
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  InternalServerErrorException,
+  Post,
+} from '@nestjs/common';
 import { CreateOrderDto } from './dto/create-order.dto';
+import { InsufficientStockError } from '@/domain/products/Product';
+import { InsufficientFundsError } from '@/domain/accounts/Account';
 
 @Controller('order')
 export default class OrderController {
@@ -17,9 +25,7 @@ export default class OrderController {
     @Body()
     { userId, orders }: CreateOrderDto,
   ) {
-    const totalPrice = await this.productSvc.purchaseProducts({
-      productQuantities: orders,
-    });
+    const totalPrice = await this.purchase({ orders });
 
     const newBalance = await this.withdraw({ userId, orders, totalPrice });
 
@@ -31,6 +37,19 @@ export default class OrderController {
     };
   }
 
+  private async purchase({ orders }) {
+    try {
+      return await this.productSvc.purchaseProducts({
+        productQuantities: orders,
+      });
+    } catch (ex) {
+      if (ex instanceof InsufficientStockError) {
+        throw new BadRequestException('수량이 부족합니다.');
+      }
+      throw new InternalServerErrorException('수량 감소에 실패했습니다.');
+    }
+  }
+
   private async withdraw({ userId, orders, totalPrice }) {
     try {
       return await this.accountSvc.withdraw({
@@ -38,9 +57,15 @@ export default class OrderController {
         amount: totalPrice,
       });
     } catch (ex) {
-      await this.productSvc.increaseProductsQuantity({
-        productQuantities: orders,
-      });
+      if (ex instanceof InsufficientFundsError) {
+        await this.productSvc.increaseProductsQuantity({
+          productQuantities: orders,
+        });
+
+        throw new BadRequestException('계좌 잔액이 부족합니다.');
+      }
+
+      throw new InternalServerErrorException('계좌 출금에 실패했습니다.');
     }
   }
 
@@ -52,10 +77,14 @@ export default class OrderController {
         totalAmount: totalPrice,
       });
     } catch (ex) {
-      await this.productSvc.increaseProductsQuantity({
-        productQuantities: orders,
-      });
-      await this.accountSvc.deposit({ userId, amount: totalPrice });
+      await Promise.all([
+        this.productSvc.increaseProductsQuantity({
+          productQuantities: orders,
+        }),
+        this.accountSvc.deposit({ userId, amount: totalPrice }),
+      ]);
+
+      throw new InternalServerErrorException('계좌 출금에 실패했습니다.');
     }
   }
 }
