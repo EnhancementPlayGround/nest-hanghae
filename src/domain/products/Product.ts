@@ -26,14 +26,22 @@ export class Product {
     return new Product(id, name, price, quantity, new Date());
   }
 
-  decreaseQuantity(quantityTodecreaseQuantity: number): number {
-    if (quantityTodecreaseQuantity > this.quantity) {
+  decreaseQuantity(quantityToDecrease: number): number {
+    if (quantityToDecrease > this.quantity) {
       throw new InsufficientStockError('Insufficient stock');
     }
 
-    this.quantity -= quantityTodecreaseQuantity;
-    const totalPrice = this.price * quantityTodecreaseQuantity;
-    return totalPrice;
+    this.quantity -= quantityToDecrease;
+    return this.quantity
+  }
+
+  increaseQuantity(quantityToIncrease: number): number {
+    if (quantityToIncrease < 0) {
+      throw new InsufficientStockError('Insufficient stock');
+    }
+
+    this.quantity += quantityToIncrease;
+    return this.quantity
   }
 
   getRemainingQuantity() {
