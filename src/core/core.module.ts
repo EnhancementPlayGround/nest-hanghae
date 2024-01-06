@@ -10,6 +10,7 @@ import { DiscoveryModule } from '@nestjs/core';
 import { CloudwatchLoggerAddon } from './logger/CloudwatchLoggerAddon';
 import { CloudWatchLogsClient } from '@aws-sdk/client-cloudwatch-logs';
 import Logger from './logger/Logger';
+import AnalyticsManager from './external-apis/AnalyticsManager';
 
 @Module({
   imports: [
@@ -49,6 +50,7 @@ import Logger from './logger/Logger';
       inject: [],
     },
     Logger,
+    AnalyticsManager
   ],
   exports: [
     DatabaseClient,
@@ -57,6 +59,7 @@ import Logger from './logger/Logger';
     EnvHealthIndicator,
     DistributedLockDecorator,
     Logger,
+    AnalyticsManager
   ],
 })
 export class CoreModule {}
