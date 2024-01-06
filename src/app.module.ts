@@ -7,6 +7,7 @@ import {
   ProductProviders,
 } from './Providers';
 import { CoreModule } from './core/core.module';
+import { CqrsModule } from '@nestjs/cqrs';
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { CoreModule } from './core/core.module';
       isGlobal: true,
     }),
     CoreModule,
+    CqrsModule,
   ],
   controllers: [...ControllerProviders],
   providers: [...AccountProviders, ...ProductProviders, ...OrderProviders],

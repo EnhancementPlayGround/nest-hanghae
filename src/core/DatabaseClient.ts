@@ -15,7 +15,7 @@ export default class DatabaseClient
         },
       ],
     });
-    
+
     this.$on('query', (e) =>
       logger.info(
         `Query: ${e.query}, Params: ${e.params}, Duration: ${e.duration}ms`,

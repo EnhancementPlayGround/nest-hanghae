@@ -6,6 +6,8 @@ import IOrderRepository, {
 } from '../../domain/orders/IOrderRepository';
 import { OrderItemId } from '@/domain/orders/OrderItemId';
 import { OrderId } from '@/domain/orders/OderId';
+import { EventBus } from '@nestjs/cqrs';
+import OrderCreatedEvent from '@/domain/orders/OrderCreatedEvent';
 
 export interface ICreateOrder {
   userId: string;
@@ -20,6 +22,7 @@ export interface ICreateOrder {
 export class OrderService {
   constructor(
     @Inject(OrderRepositoryKey) private readonly repo: IOrderRepository,
+    private readonly eventBus: EventBus,
   ) {}
 
   async createOrder({ userId, orders, totalAmount }: ICreateOrder) {
@@ -36,6 +39,10 @@ export class OrderService {
       totalAmount,
       orderItems,
     });
+
+    await this.eventBus.publish(
+      new OrderCreatedEvent(userId, orders, totalAmount),
+    );
 
     return await this.repo.save({ order });
   }
