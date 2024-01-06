@@ -26,13 +26,13 @@ export class Product {
     return new Product(id, name, price, quantity, new Date());
   }
 
-  purchase(quantityToPurchase: number): number {
-    if (quantityToPurchase > this.quantity) {
+  decreaseQuantity(quantityTodecreaseQuantity: number): number {
+    if (quantityTodecreaseQuantity > this.quantity) {
       throw new InsufficientStockError('Insufficient stock');
     }
 
-    this.quantity -= quantityToPurchase;
-    const totalPrice = this.price * quantityToPurchase;
+    this.quantity -= quantityTodecreaseQuantity;
+    const totalPrice = this.price * quantityTodecreaseQuantity;
     return totalPrice;
   }
 

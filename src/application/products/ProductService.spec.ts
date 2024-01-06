@@ -27,7 +27,7 @@ describe('상품 구매 로직 테스트', () => {
     ];
 
     // given
-    const totalAmount = await productService.purchaseProducts({
+    const totalAmount = await productService.decreaseProductsQuantity({
       productQuantities,
     });
 

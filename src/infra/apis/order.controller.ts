@@ -17,7 +17,7 @@ export default class OrderController {
     @Body()
     { userId, orders }: CreateOrderDto,
   ) {
-    const totalPrice = await this.productSvc.purchaseProducts({
+    const totalPrice = await this.productSvc.decreaseProductsQuantity({
       productQuantities: orders,
     });
 

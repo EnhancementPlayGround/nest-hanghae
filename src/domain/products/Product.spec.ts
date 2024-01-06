@@ -7,7 +7,7 @@ describe('상품 구매 테스트', () => {
     const product = createProduct(1000, 1);
     const amount = 10;
 
-    expect(() => product.purchase(amount)).toThrow(
+    expect(() => product.decreaseQuantity(amount)).toThrow(
       new InsufficientStockError('Insufficient stock'),
     );
   });
@@ -16,7 +16,7 @@ describe('상품 구매 테스트', () => {
     const product = createProduct(1000, 20);
     const amount = 10;
 
-    const totalPrice = product.purchase(amount);
+    const totalPrice = product.decreaseQuantity(amount);
     const remainingQuantity = product.getRemainingQuantity();
 
     expect(totalPrice).toEqual(10000);
